@@ -119,7 +119,7 @@ function Compare-VersionIdentifier {
     if ($leftIsNumber) { return -1 }
     if ($rightIsNumber) { return 1 }
 
-    return [string]::Compare($Left, $Right, [System.StringComparison]::OrdinalIgnoreCase)
+    return [string]::Compare($Left, $Right, [System.StringComparison]::Ordinal)
 }
 
 function Compare-PackageVersion {
@@ -159,7 +159,7 @@ function Compare-PackageVersion {
     $right = & $parseVersionString $RightVersion
 
     if (-not $left -or -not $right) {
-        return [string]::Compare($LeftVersion, $RightVersion, [System.StringComparison]::OrdinalIgnoreCase)
+        return [string]::Compare($LeftVersion, $RightVersion, [System.StringComparison]::Ordinal)
     }
 
     $leftCore = @($left.Core)
