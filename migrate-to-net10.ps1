@@ -115,7 +115,7 @@ function Compare-VersionIdentifier {
         return 0
     }
 
-    # SemVer precedence: numeric pre-release identifiers sort before non-numeric identifiers.
+    # SemVer precedence: numeric pre-release identifiers have lower precedence than non-numeric identifiers.
     if ($leftIsNumber) { return -1 }
     if ($rightIsNumber) { return 1 }
 
@@ -142,7 +142,7 @@ function Compare-PackageVersion {
         foreach ($segment in ($coreText -split '\.')) {
             $value = [int64]0
             if (-not [int64]::TryParse($segment, [ref]$value)) {
-                Write-Warning "Could not parse version '$VersionText'. Segment '$segment' is not numeric. Falling back to ordinal comparison."
+                Write-Warning "Could not parse version '$VersionText'. Segment '$segment' is not numeric. Falling back to simple string comparison."
                 return $null
             }
             $coreNumbers += $value
