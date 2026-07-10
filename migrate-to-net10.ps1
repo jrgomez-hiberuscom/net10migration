@@ -213,11 +213,102 @@ function Get-HigherPackageVersion {
     return $CandidateVersion
 }
 
+function Update-TargetFrameworks {
+    param(
+        [Parameter(Mandatory = $true)]
+        [System.IO.FileInfo[]]$ProjectFiles
+    )
+
+    $updatedProjects = 0
+    foreach ($projectFile in $ProjectFiles) {
+        [xml]$projectDocument = Get-Content -LiteralPath $projectFile.FullName -Raw
+        $projectChanged = $false
+
+        $targetFrameworkNodes = $projectDocument.SelectNodes("//*[local-name()='TargetFramework' or local-name()='TargetFrameworks']")
+        foreach ($targetFrameworkNode in $targetFrameworkNodes) {
+            $currentValue = $targetFrameworkNode.InnerText
+            if ([string]::IsNullOrWhiteSpace($currentValue)) {
+                continue
+            }
+
+            $updatedValue = [System.Text.RegularExpressions.Regex]::Replace($currentValue, "(^|;)net8\.0(?=;|$)", '${1}net10.0')
+            if ($updatedValue -ne $currentValue) {
+                $targetFrameworkNode.InnerText = $updatedValue
+                $projectChanged = $true
+            }
+        }
+
+        if ($projectChanged) {
+            Save-XmlUtf8 -XmlDocument $projectDocument -Path $projectFile.FullName
+            $updatedProjects++
+        }
+    }
+
+    return $updatedProjects
+}
+
+function Convert-SolutionsToSlnx {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$RootPath
+    )
+
+    $createdSlnx = 0
+    $solutionFiles = Get-ChildItem -Path $RootPath -Recurse -Filter "*.sln" -File |
+        Where-Object { $_.FullName -notmatch "[/\\](bin|obj)([/\\]|$)" }
+
+    foreach ($solutionFile in $solutionFiles) {
+        $slnxPath = [System.IO.Path]::ChangeExtension($solutionFile.FullName, ".slnx")
+        if (Test-Path -LiteralPath $slnxPath) {
+            continue
+        }
+
+        $stdout = ""
+        $stderr = ""
+        $exitCode = 0
+
+        $stdout = (& dotnet sln migrate $solutionFile.FullName --output $slnxPath 2>&1 | Out-String)
+        $exitCode = $LASTEXITCODE
+        if ($exitCode -ne 0) {
+            $stderr = $stdout
+            $stdout = (& dotnet sln $solutionFile.FullName migrate --output $slnxPath 2>&1 | Out-String)
+            $exitCode = $LASTEXITCODE
+        }
+
+        if ($exitCode -ne 0) {
+            throw "Failed to convert '$($solutionFile.FullName)' to '.slnx'. dotnet output: $stderr $stdout"
+        }
+
+        if (-not (Test-Path -LiteralPath $slnxPath)) {
+            throw "dotnet migration for '$($solutionFile.FullName)' completed without errors, but '$slnxPath' was not created."
+        }
+
+        $createdSlnx++
+    }
+
+    return $createdSlnx
+}
+
 if (-not (Test-Path -LiteralPath $SolutionRoot)) {
     throw "The path '$SolutionRoot' does not exist."
 }
 
 $solutionRootFullPath = (Resolve-Path -LiteralPath $SolutionRoot).Path
+
+$targetPackageVersions = @{
+    "bunit" = "2.7.2"
+    "coverlet.collector" = "10.0.1"
+    "FluentAssertions" = "8.10.0"
+    "Microsoft.AspNetCore.Components.Web" = "10.0.9"
+    "Microsoft.AspNetCore.Components.WebAssembly" = "10.0.9"
+    "Microsoft.NET.Test.Sdk" = "18.7.0"
+    "NUnit" = "4.6.1"
+    "NUnit.Analyzers" = "4.14.0"
+    "NUnit3TestAdapter" = "6.2.0"
+    "SsidArqNet.Ateka.PublisherProxy" = "1.0.1"
+    "SsidArqNet.Components.Blazor.Reporta" = "1.1.0"
+    "SsidArqNet.InternalComponents.Blazor.TemplateBuilder" = "1.2.0"
+}
 
 $directoryPackagesPath = Join-Path $solutionRootFullPath "Directory.Packages.props"
 Ensure-DirectoryPackagesProps -Path $directoryPackagesPath
@@ -239,6 +330,9 @@ foreach ($packageVersionNode in $existingPackageVersionNodes) {
 
 $csprojFiles = Get-ChildItem -Path $solutionRootFullPath -Recurse -Filter "*.csproj" -File |
     Where-Object { $_.FullName -notmatch "[/\\](bin|obj)([/\\]|$)" }
+
+$updatedTargetFrameworkProjects = Update-TargetFrameworks -ProjectFiles $csprojFiles
+$createdSlnxCount = Convert-SolutionsToSlnx -RootPath $solutionRootFullPath
 
 foreach ($csproj in $csprojFiles) {
     [xml]$projectDocument = Get-Content -LiteralPath $csproj.FullName -Raw
@@ -280,6 +374,10 @@ foreach ($csproj in $csprojFiles) {
     if ($projectChanged) {
         Save-XmlUtf8 -XmlDocument $projectDocument -Path $csproj.FullName
     }
+
+    foreach ($packageName in $targetPackageVersions.Keys) {
+        $packageVersions[$packageName] = $targetPackageVersions[$packageName]
+    }
 }
 
 $projectNode = $directoryPackagesDocument.SelectSingleNode("/*[local-name()='Project']")
@@ -307,4 +405,6 @@ Save-XmlUtf8 -XmlDocument $directoryPackagesDocument -Path $directoryPackagesPat
 Write-Host "Central package version migration completed."
 Write-Host "- Directory.Packages.props ensured at: $directoryPackagesPath"
 Write-Host "- Projects analyzed: $($csprojFiles.Count)"
+Write-Host "- Projects updated from net8.0 to net10.0: $updatedTargetFrameworkProjects"
+Write-Host "- .sln to .slnx conversions created: $createdSlnxCount"
 Write-Host "- Packages centralized: $($packageVersions.Count)"
