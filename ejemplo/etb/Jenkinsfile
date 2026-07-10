@@ -9,7 +9,7 @@ def nombreProyectoTemplateBuilderConSeccion = "Empleo.${nombreProyectoTemplateBu
 
 def userParam = [
     VersionBase: "1.0.0",
-    FicheroSolucion: "${nombreSolucion}.sln",
+    FicheroSolucion: "${nombreSolucion}.slnx",
     Unidad: "gatSsid",
     Test: [
         Skip: false,

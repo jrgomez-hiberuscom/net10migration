@@ -1,0 +1,36 @@
+<Solution>
+  <Folder Name="/0.1 - SolutionItems/">
+    <File Path="Jenkinsfile" />
+    <File Path="Project.Build.targets" />
+  </Folder>
+  <Folder Name="/0.2 - Tests/">
+    <Project Path="Fuentes/Reporta.TemplateBuilder.Test.Unit/Reporta.TemplateBuilder.Test.Unit.csproj" />
+  </Folder>
+  <Folder Name="/1.0 - Templates/" />
+  <Folder Name="/1.0 - Templates/Ejemplos/">
+    <Project Path="Fuentes/Reporta.Templates.GAT_SSID.SsidArqNet.ReporteComplejo/Reporta.Templates.GAT_SSID.SsidArqNet.ReporteComplejo.csproj" />
+    <Project Path="Fuentes/Reporta.Templates.GAT_SSID.SsidArqNet.ReporteSimple/Reporta.Templates.GAT_SSID.SsidArqNet.ReporteSimple.csproj" />
+  </Folder>
+  <Folder Name="/1.0 - Templates/Empleo Formación/">
+    <Project Path="Fuentes/Reporta.Templates.Empleo.EmpleoFormacion.FichaCurso/Reporta.Templates.Empleo.EmpleoFormacion.FichaCurso.csproj" />
+    <Project Path="Fuentes/Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcion/Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcion.csproj" />
+    <Project Path="Fuentes/Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcionLote/Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcionLote.csproj" />
+  </Folder>
+  <Folder Name="/1.0 - Templates/EmpleoIntermediacion/">
+    <Project Path="Fuentes/Reporta.Templates.Empleo.EmpleoIntermediacion.EmpresaRepresentante/Reporta.Templates.Empleo.EmpleoIntermediacion.EmpresaRepresentante.csproj" />
+    <Project Path="Fuentes/Reporta.Templates.Empleo.EmpleoIntermediacion.Representante/Reporta.Templates.Empleo.EmpleoIntermediacion.Representante.csproj" />
+    <Project Path="Fuentes/Reporta.Templates.Empleo.EmpleoIntermediacion.RepresentanteEmpresa/Reporta.Templates.Empleo.EmpleoIntermediacion.RepresentanteEmpresa.csproj" />
+  </Folder>
+  <Folder Name="/1.0 - Templates/Registro acreditaciones/">
+    <Project Path="Fuentes/Reporta.Templates.Empleo.Raf.CertificadoProvisional/Reporta.Templates.Empleo.Raf.CertificadoProvisional.csproj" />
+  </Folder>
+  <Folder Name="/1.0 - Templates/Renta básica/">
+    <Project Path="Fuentes/Reporta.Templates.Empleo.Crb.ListadoCandidatos/Reporta.Templates.Empleo.Crb.ListadoCandidatos.csproj" />
+  </Folder>
+  <Folder Name="/1.0 - Templates/WebOfertas/">
+    <Project Path="Fuentes/Reporta.Templates.Empleo.WebOfertas.Ofertas/Reporta.Templates.Empleo.WebOfertas.Ofertas.csproj" />
+  </Folder>
+  <Folder Name="/2.0 - Presentation/">
+    <Project Path="Fuentes/Reporta.TemplateBuilder/Reporta.TemplateBuilder.csproj" />
+  </Folder>
+</Solution>
