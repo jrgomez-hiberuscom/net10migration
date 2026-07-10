@@ -138,8 +138,8 @@ function Compare-PackageVersion {
 
         $coreNumbers = @()
         foreach ($segment in ($coreText -split '\.')) {
-            $value = 0
-            if (-not [int]::TryParse($segment, [ref]$value)) {
+            $value = [int64]0
+            if (-not [int64]::TryParse($segment, [ref]$value)) {
                 return $null
             }
             $coreNumbers += $value
@@ -147,7 +147,7 @@ function Compare-PackageVersion {
 
         return @{
             Core = @($coreNumbers)
-            PreRelease = @(if ([string]::IsNullOrWhiteSpace($preReleaseText)) { @() } else { $preReleaseText -split '\.' })
+            PreRelease = if ([string]::IsNullOrWhiteSpace($preReleaseText)) { @() } else { @($preReleaseText -split '\.') }
             Original = $VersionText
         }
     }
@@ -159,27 +159,32 @@ function Compare-PackageVersion {
         return [string]::Compare($LeftVersion, $RightVersion, [System.StringComparison]::OrdinalIgnoreCase)
     }
 
-    $maxCoreLength = [Math]::Max($left.Core.Count, $right.Core.Count)
+    $leftCore = @($left.Core)
+    $rightCore = @($right.Core)
+    $leftPreRelease = @($left.PreRelease)
+    $rightPreRelease = @($right.PreRelease)
+
+    $maxCoreLength = [Math]::Max($leftCore.Count, $rightCore.Count)
     for ($index = 0; $index -lt $maxCoreLength; $index++) {
-        $leftNumber = if ($index -lt $left.Core.Count) { $left.Core[$index] } else { 0 }
-        $rightNumber = if ($index -lt $right.Core.Count) { $right.Core[$index] } else { 0 }
+        $leftNumber = if ($index -lt $leftCore.Count) { $leftCore[$index] } else { 0 }
+        $rightNumber = if ($index -lt $rightCore.Count) { $rightCore[$index] } else { 0 }
 
         if ($leftNumber -lt $rightNumber) { return -1 }
         if ($leftNumber -gt $rightNumber) { return 1 }
     }
 
-    $leftIsStable = $left.PreRelease.Count -eq 0
-    $rightIsStable = $right.PreRelease.Count -eq 0
+    $leftIsStable = $leftPreRelease.Count -eq 0
+    $rightIsStable = $rightPreRelease.Count -eq 0
     if ($leftIsStable -and $rightIsStable) { return 0 }
     if ($leftIsStable) { return 1 }
     if ($rightIsStable) { return -1 }
 
-    $maxPreReleaseLength = [Math]::Max($left.PreRelease.Count, $right.PreRelease.Count)
+    $maxPreReleaseLength = [Math]::Max($leftPreRelease.Count, $rightPreRelease.Count)
     for ($index = 0; $index -lt $maxPreReleaseLength; $index++) {
-        if ($index -ge $left.PreRelease.Count) { return -1 }
-        if ($index -ge $right.PreRelease.Count) { return 1 }
+        if ($index -ge $leftPreRelease.Count) { return -1 }
+        if ($index -ge $rightPreRelease.Count) { return 1 }
 
-        $comparison = Compare-VersionIdentifier -Left $left.PreRelease[$index] -Right $right.PreRelease[$index]
+        $comparison = Compare-VersionIdentifier -Left $leftPreRelease[$index] -Right $rightPreRelease[$index]
         if ($comparison -ne 0) {
             return $comparison
         }
@@ -301,7 +306,7 @@ foreach ($packageName in ($packageVersions.Keys | Sort-Object)) {
 
 Save-XmlUtf8 -XmlDocument $directoryPackagesDocument -Path $directoryPackagesPath
 
-Write-Host "Step 1 completed."
+Write-Host "Central package version migration completed."
 Write-Host "- Directory.Packages.props ensured at: $directoryPackagesPath"
 Write-Host "- Projects analyzed: $($csprojFiles.Count)"
 Write-Host "- Packages centralized: $($packageVersions.Count)"
