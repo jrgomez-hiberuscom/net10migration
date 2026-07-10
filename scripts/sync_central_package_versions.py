@@ -7,9 +7,9 @@ from dataclasses import dataclass
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
-# Overrides explícitos de versión por paquete.
+# Explicit version overrides per package.
 targetPackageVersions: dict[str, str] = {}
-# Mapa opcional de paquetes reemplazados/renombrados (origen -> destino).
+# Optional map of replaced/renamed packages (source -> destination).
 replacedPackages: dict[str, str] = {}
 
 
@@ -243,22 +243,22 @@ def process_directory_packages_props(props_path: Path) -> tuple[int, int]:
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Centraliza versiones de PackageReference en Directory.Packages.props "
-            "eliminando versiones de los csproj."
+            "Centralizes PackageReference versions in Directory.Packages.props "
+            "by removing versions from csproj files."
         )
     )
     parser.add_argument(
         "root",
         nargs="?",
         default=".",
-        help="Directorio raíz donde buscar Directory.Packages.props",
+        help="Root directory where to search for Directory.Packages.props",
     )
     args = parser.parse_args()
 
     root_path = Path(args.root).resolve()
     props_files = sorted(root_path.rglob("Directory.Packages.props"))
     if not props_files:
-        print("No se ha encontrado ningún Directory.Packages.props")
+        print("No Directory.Packages.props found")
         return 1
 
     total_projects = 0
@@ -270,8 +270,8 @@ def main() -> int:
         total_props += changed_props
 
     print(
-        f"Procesados {len(props_files)} Directory.Packages.props, "
-        f"csproj modificados: {total_projects}, props modificados: {total_props}."
+        f"Processed {len(props_files)} Directory.Packages.props, "
+        f"modified csproj: {total_projects}, modified props: {total_props}."
     )
     return 0
 
