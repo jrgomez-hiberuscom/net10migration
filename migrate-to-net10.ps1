@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Runs step 1 of the .NET 10 migration workflow by centralizing NuGet package versions into Directory.Packages.props.
+Runs the .NET 10 migration workflow by updating target frameworks, generating .slnx files, and centralizing/enforcing NuGet package versions in Directory.Packages.props.
 
 .PARAMETER SolutionRoot
 Root directory of the solution that contains the .sln file and .csproj files to migrate.
@@ -267,6 +267,7 @@ function Convert-SolutionsToSlnx {
         $stderr = ""
         $exitCode = 0
 
+        # Try both command syntaxes to support different SDK CLI layouts during transition to .NET 10 tooling.
         $stdout = (& dotnet sln migrate $solutionFile.FullName --output $slnxPath 2>&1 | Out-String)
         $exitCode = $LASTEXITCODE
         if ($exitCode -ne 0) {
@@ -374,10 +375,10 @@ foreach ($csproj in $csprojFiles) {
     if ($projectChanged) {
         Save-XmlUtf8 -XmlDocument $projectDocument -Path $csproj.FullName
     }
+}
 
-    foreach ($packageName in $targetPackageVersions.Keys) {
-        $packageVersions[$packageName] = $targetPackageVersions[$packageName]
-    }
+foreach ($packageName in $targetPackageVersions.Keys) {
+    $packageVersions[$packageName] = $targetPackageVersions[$packageName]
 }
 
 $projectNode = $directoryPackagesDocument.SelectSingleNode("/*[local-name()='Project']")
