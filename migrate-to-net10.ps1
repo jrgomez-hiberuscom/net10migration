@@ -95,6 +95,114 @@ function Get-PackageKey {
     return $null
 }
 
+function Compare-VersionIdentifier {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Left,
+        [Parameter(Mandatory = $true)]
+        [string]$Right
+    )
+
+    $leftIsNumber = $Left -match '^\d+$'
+    $rightIsNumber = $Right -match '^\d+$'
+
+    if ($leftIsNumber -and $rightIsNumber) {
+        $leftNumber = [int64]$Left
+        $rightNumber = [int64]$Right
+        if ($leftNumber -lt $rightNumber) { return -1 }
+        if ($leftNumber -gt $rightNumber) { return 1 }
+        return 0
+    }
+
+    if ($leftIsNumber) { return -1 }
+    if ($rightIsNumber) { return 1 }
+
+    return [string]::Compare($Left, $Right, [System.StringComparison]::OrdinalIgnoreCase)
+}
+
+function Compare-PackageVersion {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$LeftVersion,
+        [Parameter(Mandatory = $true)]
+        [string]$RightVersion
+    )
+
+    $normalize = {
+        param([string]$VersionText)
+
+        $withoutMetadata = ($VersionText -split '\+', 2)[0]
+        $parts = $withoutMetadata -split '-', 2
+        $coreText = $parts[0]
+        $preReleaseText = if ($parts.Count -gt 1) { $parts[1] } else { $null }
+
+        $coreNumbers = @()
+        foreach ($segment in ($coreText -split '\.')) {
+            $value = 0
+            if (-not [int]::TryParse($segment, [ref]$value)) {
+                return $null
+            }
+            $coreNumbers += $value
+        }
+
+        return @{
+            Core = $coreNumbers
+            PreRelease = if ([string]::IsNullOrWhiteSpace($preReleaseText)) { @() } else { $preReleaseText -split '\.' }
+            Original = $VersionText
+        }
+    }
+
+    $left = & $normalize $LeftVersion
+    $right = & $normalize $RightVersion
+
+    if (-not $left -or -not $right) {
+        return [string]::Compare($LeftVersion, $RightVersion, [System.StringComparison]::OrdinalIgnoreCase)
+    }
+
+    $maxCoreLength = [Math]::Max($left.Core.Count, $right.Core.Count)
+    for ($index = 0; $index -lt $maxCoreLength; $index++) {
+        $leftNumber = if ($index -lt $left.Core.Count) { $left.Core[$index] } else { 0 }
+        $rightNumber = if ($index -lt $right.Core.Count) { $right.Core[$index] } else { 0 }
+
+        if ($leftNumber -lt $rightNumber) { return -1 }
+        if ($leftNumber -gt $rightNumber) { return 1 }
+    }
+
+    $leftIsStable = $left.PreRelease.Count -eq 0
+    $rightIsStable = $right.PreRelease.Count -eq 0
+    if ($leftIsStable -and $rightIsStable) { return 0 }
+    if ($leftIsStable) { return 1 }
+    if ($rightIsStable) { return -1 }
+
+    $maxPreReleaseLength = [Math]::Max($left.PreRelease.Count, $right.PreRelease.Count)
+    for ($index = 0; $index -lt $maxPreReleaseLength; $index++) {
+        if ($index -ge $left.PreRelease.Count) { return -1 }
+        if ($index -ge $right.PreRelease.Count) { return 1 }
+
+        $comparison = Compare-VersionIdentifier -Left $left.PreRelease[$index] -Right $right.PreRelease[$index]
+        if ($comparison -ne 0) {
+            return $comparison
+        }
+    }
+
+    return 0
+}
+
+function Get-HigherPackageVersion {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$CurrentVersion,
+        [Parameter(Mandatory = $true)]
+        [string]$CandidateVersion
+    )
+
+    if ((Compare-PackageVersion -LeftVersion $CurrentVersion -RightVersion $CandidateVersion) -ge 0) {
+        return $CurrentVersion
+    }
+
+    return $CandidateVersion
+}
+
 if (-not (Test-Path -LiteralPath $SolutionRoot)) {
     throw "The path '$SolutionRoot' does not exist."
 }
@@ -155,11 +263,7 @@ foreach ($csproj in $csprojFiles) {
         }
 
         if ($packageVersions.Contains($packageKey)) {
-            if ($packageVersions[$packageKey] -ne $versionValue) {
-                $existingSource = ($packageSources[$packageKey] -join ", ")
-                throw "Version conflict for '$packageKey': '$($packageVersions[$packageKey])' in '$existingSource' and '$versionValue' in '$($csproj.FullName)'."
-            }
-
+            $packageVersions[$packageKey] = Get-HigherPackageVersion -CurrentVersion $packageVersions[$packageKey] -CandidateVersion $versionValue
             if (-not ($packageSources[$packageKey] -contains $csproj.FullName)) {
                 $packageSources[$packageKey] += $csproj.FullName
             }
