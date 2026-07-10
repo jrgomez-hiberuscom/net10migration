@@ -142,7 +142,7 @@ function Compare-PackageVersion {
         foreach ($segment in ($coreText -split '\.')) {
             $value = [int64]0
             if (-not [int64]::TryParse($segment, [ref]$value)) {
-                Write-Warning "Could not parse version '$VersionText'. Segment '$segment' is not numeric. Falling back to simple string comparison."
+                Write-Warning "Could not parse version '$VersionText'. Segment '$segment' is not numeric. Falling back to simple string comparison, which may not preserve exact version precedence."
                 return $null
             }
             $coreNumbers += $value
@@ -287,7 +287,7 @@ if (-not $packageItemGroup) {
 }
 
 $currentPackageVersionNodes = $directoryPackagesDocument.SelectNodes("/*[local-name()='Project']/*[local-name()='ItemGroup']/*[local-name()='PackageVersion']")
-# Create a copy before removal to avoid mutating a live XML node collection during enumeration.
+# Create a copy before removal to avoid collection modification errors while iterating a live XML NodeList.
 foreach ($node in @($currentPackageVersionNodes)) {
     [void]$node.ParentNode.RemoveChild($node)
 }
