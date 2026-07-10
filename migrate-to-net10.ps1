@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Centralizes NuGet package versions into Directory.Packages.props.
+Runs step 1 of the .NET 10 migration workflow by centralizing NuGet package versions into Directory.Packages.props.
 
 .PARAMETER SolutionRoot
 Root directory of the solution that contains the .sln file and .csproj files to migrate.
@@ -108,8 +108,11 @@ function Compare-VersionIdentifier {
     $rightIsNumber = $Right -match $numericIdentifierPattern
 
     if ($leftIsNumber -and $rightIsNumber) {
-        $leftNumber = [int64]$Left
-        $rightNumber = [int64]$Right
+        $leftNumber = [int64]0
+        $rightNumber = [int64]0
+        if (-not [int64]::TryParse($Left, [ref]$leftNumber) -or -not [int64]::TryParse($Right, [ref]$rightNumber)) {
+            return [string]::Compare($Left, $Right, [System.StringComparison]::Ordinal)
+        }
         if ($leftNumber -lt $rightNumber) { return -1 }
         if ($leftNumber -gt $rightNumber) { return 1 }
         return 0
@@ -142,7 +145,7 @@ function Compare-PackageVersion {
         foreach ($segment in ($coreText -split '\.')) {
             $value = [int64]0
             if (-not [int64]::TryParse($segment, [ref]$value)) {
-                Write-Warning "Could not parse version '$VersionText'. Segment '$segment' is not numeric. Falling back to simple string comparison, which may not preserve exact version precedence."
+                Write-Warning "Could not parse version '$VersionText'. Segment '$segment' is not numeric. Falling back to simple string comparison, which may select the wrong highest version. Review this package manually."
                 return $null
             }
             $coreNumbers += $value
