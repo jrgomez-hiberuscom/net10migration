@@ -229,7 +229,7 @@ def process_directory_packages_props(props_path: Path) -> tuple[int, int]:
         effective_versions[package_id] = version
 
     for package_id, version in targetPackageVersions.items():
-        if version:
+        if version is not None and version != "":
             effective_versions[package_id] = version
 
     props_changed = apply_package_versions_to_props(props_root, namespace, effective_versions)
