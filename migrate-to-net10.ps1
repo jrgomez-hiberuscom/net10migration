@@ -288,17 +288,17 @@ $solutionRootFullPath = (Resolve-Path -LiteralPath $SolutionRoot).Path
 
 $targetPackageVersions = @{
     "bunit" = "2.7.2"
-    "coverlet.collector" = "10.0.1"
-    "FluentAssertions" = "8.10.0"
-    "Microsoft.AspNetCore.Components.Web" = "10.0.9"
-    "Microsoft.AspNetCore.Components.WebAssembly" = "10.0.9"
-    "Microsoft.NET.Test.Sdk" = "18.7.0"
+    "coverlet.collector" = "6.0.4"
+    "FluentAssertions" = "7.2.2"
+    "Microsoft.AspNetCore.Components.Web" = "10.0.5"
+    "Microsoft.AspNetCore.Components.WebAssembly" = "10.0.5"
+    "Microsoft.NET.Test.Sdk" = "18.6.0"
     "NUnit" = "4.6.1"
-    "NUnit.Analyzers" = "4.14.0"
+    "NUnit.Analyzers" = "4.13.0"
     "NUnit3TestAdapter" = "6.2.0"
-    "SsidArqNet.Ateka.PublisherProxy" = "1.0.1"
-    "SsidArqNet.Components.Blazor.Reporta" = "1.1.0"
-    "SsidArqNet.InternalComponents.Blazor.TemplateBuilder" = "1.2.0"
+    "SsidArqNet.Ateka.PublisherProxy" = "10.0.0"
+    "SsidArqNet.Components.Blazor.Reporta" = "10.0.1"
+    "SsidArqNet.InternalComponents.Blazor.TemplateBuilder" = "10.0.1"
 }
 
 $directoryPackagesPath = Join-Path $solutionRootFullPath "Directory.Packages.props"
