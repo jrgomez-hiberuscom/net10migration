@@ -5,9 +5,9 @@ using SsidArqNet.InternalComponents.Blazor.TemplateBuilder.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// Configura el proxy definido en appsettings.json, necesario para que la autenticación mediante ATEKA funcione correctamente.
+// Configura el proxy definido en appsettings.json, necesario para que la autenticaciï¿½n mediante ATEKA funcione correctamente.
 
-builder.ConfigurarProxyDesdeAppSettings();
+builder.AddSsidArqNetAtekaProxyFromAppSettings();
 
 // Configura los servicios de Blazor Server y el modo de renderizado, habilitando el detalle de errores.
 
@@ -16,7 +16,7 @@ builder
     .AddInteractiveServerComponents()
     .AddCircuitOptions(configure: options => options.DetailedErrors = true);
 
-// Configura los servicios comunes de la arquitectura, utilizando paquetes NuGet personalizados e inyección de dependencias.
+// Configura los servicios comunes de la arquitectura, utilizando paquetes NuGet personalizados e inyecciï¿½n de dependencias.
 
 builder.Services.ConfigurarTemplateBuilderInternalComponentDesdeAppSettings(
     configuration: builder.Configuration
@@ -28,21 +28,21 @@ WebApplication app = builder.Build();
 
 // Aplica el middleware del proxy a partir de appsettings.json.
 
-app.UsarProxyDesdeAppSettings();
+app.UseSsidArqNetProxy();
 
-// Configura el uso del middleware de excepciones en producción.
+// Configura el uso del middleware de excepciones en producciï¿½n.
 
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler(errorHandlingPath: "/Error", createScopeForErrors: true);
 }
 
-// Configura la redirección a HTTPS, los archivos estáticos, y el middleware de antifalsificación.
+// Configura la redirecciï¿½n a HTTPS, los archivos estï¿½ticos, y el middleware de antifalsificaciï¿½n.
 
 app.UseHttpsRedirection().UseHsts();
 app.UseStaticFiles().UseAntiforgery();
 
-// Configura el componente raíz y el modo de renderizado
+// Configura el componente raï¿½z y el modo de renderizado
 
 app
     .MapRazorComponents<App>()

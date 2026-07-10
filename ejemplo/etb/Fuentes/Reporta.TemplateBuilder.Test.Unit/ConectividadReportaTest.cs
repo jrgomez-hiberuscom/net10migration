@@ -44,13 +44,13 @@ public class ConectividadReportaTest : Bunit.TestContext
         // Configuramos el servicio de encargado de obtener el token de ATEKA
 
         Services.AddScoped<ITokenAtekaService, TokenAtekaService>();
-        Services.RegistrarTokenExchangerFromSettings(configuration: configuration);
+        Services.AddSsidArqNetTokenExchangerFromSettings(configuration: configuration);
 
         // Configuramos el cliente de OpenApi para Reporta
 
-        Services.ConfigurarOpenApiNet(
+        Services.AddSsidArqNetOpenApiClientFromAppSettings(
             configuration: configuration,
-            ensamblado: typeof(IReportaOpenApiClient).Assembly
+            defaultAssembly: typeof(IReportaOpenApiClient).Assembly
         );
 
         // Obtenemos el cliente de Reporta
