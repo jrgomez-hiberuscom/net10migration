@@ -329,6 +329,7 @@ $targetPackageVersions = @{
     "Microsoft.AspNetCore.Components.Web" = "10.0.5"
     "Microsoft.AspNetCore.Components.WebAssembly" = "10.0.5"
     "Microsoft.NET.Test.Sdk" = "18.6.0"
+	"Newtonsoft.Json" = "13.0.3"
     "NUnit" = "4.6.1"
     "NUnit.Analyzers" = "4.13.0"
     "NUnit3TestAdapter" = "6.2.0"
