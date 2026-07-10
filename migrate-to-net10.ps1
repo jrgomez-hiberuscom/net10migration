@@ -11,6 +11,7 @@ param(
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+$numericIdentifierPattern = '^\d+$'
 
 function Save-XmlUtf8 {
     param(
@@ -103,8 +104,8 @@ function Compare-VersionIdentifier {
         [string]$Right
     )
 
-    $leftIsNumber = $Left -match '^\d+$'
-    $rightIsNumber = $Right -match '^\d+$'
+    $leftIsNumber = $Left -match $numericIdentifierPattern
+    $rightIsNumber = $Right -match $numericIdentifierPattern
 
     if ($leftIsNumber -and $rightIsNumber) {
         $leftNumber = [int64]$Left
@@ -129,7 +130,7 @@ function Compare-PackageVersion {
         [string]$RightVersion
     )
 
-    $normalize = {
+    $parseVersionString = {
         param([string]$VersionText)
 
         $withoutMetadata = ($VersionText -split '\+', 2)[0]
@@ -141,6 +142,7 @@ function Compare-PackageVersion {
         foreach ($segment in ($coreText -split '\.')) {
             $value = [int64]0
             if (-not [int64]::TryParse($segment, [ref]$value)) {
+                Write-Warning "Could not parse version '$VersionText'. Segment '$segment' is not numeric."
                 return $null
             }
             $coreNumbers += $value
@@ -153,8 +155,8 @@ function Compare-PackageVersion {
         }
     }
 
-    $left = & $normalize $LeftVersion
-    $right = & $normalize $RightVersion
+    $left = & $parseVersionString $LeftVersion
+    $right = & $parseVersionString $RightVersion
 
     if (-not $left -or -not $right) {
         return [string]::Compare($LeftVersion, $RightVersion, [System.StringComparison]::OrdinalIgnoreCase)
