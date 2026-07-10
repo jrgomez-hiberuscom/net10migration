@@ -1,3 +1,10 @@
+<#
+.SYNOPSIS
+Centralizes NuGet package versions into Directory.Packages.props.
+
+.PARAMETER SolutionRoot
+Root directory of the solution that contains the .sln file and .csproj files to migrate.
+#>
 param(
     [string]$SolutionRoot = (Get-Location).Path
 )
@@ -114,7 +121,7 @@ foreach ($packageVersionNode in $existingPackageVersionNodes) {
 }
 
 $csprojFiles = Get-ChildItem -Path $solutionRootFullPath -Recurse -Filter "*.csproj" -File |
-    Where-Object { $_.FullName -notmatch "[/\\](bin|obj)[/\\]" }
+    Where-Object { $_.FullName -notmatch "[/\\](bin|obj)([/\\]|$)" }
 
 foreach ($csproj in $csprojFiles) {
     [xml]$projectDocument = Get-Content -LiteralPath $csproj.FullName -Raw
@@ -174,6 +181,7 @@ if (-not $packageItemGroup) {
 }
 
 $currentPackageVersionNodes = $directoryPackagesDocument.SelectNodes("/*[local-name()='Project']/*[local-name()='ItemGroup']/*[local-name()='PackageVersion']")
+# Create a copy before removal to avoid mutating a live XML node collection during enumeration.
 foreach ($node in @($currentPackageVersionNodes)) {
     [void]$node.ParentNode.RemoveChild($node)
 }
