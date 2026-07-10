@@ -213,6 +213,41 @@ function Get-HigherPackageVersion {
     return $CandidateVersion
 }
 
+function Update-CSharpApiReferences {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$RootPath
+    )
+
+    $replacements = @(
+        @{ Old = 'builder.ConfigurarProxyDesdeAppSettings()'; New = 'builder.AddSsidArqNetAtekaProxyFromAppSettings()' },
+        @{ Old = 'app.UsarProxyDesdeAppSettings()';           New = 'app.UseSsidArqNetProxy()' },
+        @{ Old = 'AddSsidArqNetTokenExchangerFromSettingsgs('; New = 'AddSsidArqNetTokenExchangerFromSettings(' },
+        @{ Old = 'ConfigurarOpenApiNet(';                     New = 'AddSsidArqNetOpenApiClientFromAppSettings(' },
+        @{ Old = 'ensamblado:';                               New = 'defaultAssembly:' }
+    )
+
+    $csFiles = Get-ChildItem -Path $RootPath -Recurse -Filter "*.cs" -File |
+        Where-Object { $_.FullName -notmatch "[/\\](bin|obj)([/\\]|$)" }
+
+    $updatedFiles = 0
+    foreach ($csFile in $csFiles) {
+        $content = Get-Content -LiteralPath $csFile.FullName -Raw
+        $updatedContent = $content
+
+        foreach ($replacement in $replacements) {
+            $updatedContent = $updatedContent.Replace($replacement.Old, $replacement.New)
+        }
+
+        if ($updatedContent -ne $content) {
+            [System.IO.File]::WriteAllText($csFile.FullName, $updatedContent, [System.Text.UTF8Encoding]::new($false))
+            $updatedFiles++
+        }
+    }
+
+    return $updatedFiles
+}
+
 function Update-TargetFrameworks {
     param(
         [Parameter(Mandatory = $true)]
@@ -324,6 +359,7 @@ $csprojFiles = Get-ChildItem -Path $solutionRootFullPath -Recurse -Filter "*.csp
 
 $updatedTargetFrameworkProjects = Update-TargetFrameworks -ProjectFiles $csprojFiles
 $createdSlnxCount = Convert-SolutionsToSlnx -RootPath $solutionRootFullPath
+$updatedCSharpFiles = Update-CSharpApiReferences -RootPath $solutionRootFullPath
 
 foreach ($csproj in $csprojFiles) {
     [xml]$projectDocument = Get-Content -LiteralPath $csproj.FullName -Raw
@@ -399,3 +435,4 @@ Write-Host "- Projects analyzed: $($csprojFiles.Count)"
 Write-Host "- Projects updated from net8.0 to net10.0: $updatedTargetFrameworkProjects"
 Write-Host "- .sln to .slnx conversions created: $createdSlnxCount"
 Write-Host "- Packages centralized: $($packageVersions.Count)"
+Write-Host "- C# files updated with API reference replacements: $updatedCSharpFiles"
