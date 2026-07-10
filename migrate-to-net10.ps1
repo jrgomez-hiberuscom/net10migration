@@ -114,6 +114,7 @@ function Compare-VersionIdentifier {
         return 0
     }
 
+    # SemVer precedence: numeric pre-release identifiers sort before non-numeric identifiers.
     if ($leftIsNumber) { return -1 }
     if ($rightIsNumber) { return 1 }
 
@@ -218,7 +219,7 @@ $directoryPackagesPath = Join-Path $solutionRootFullPath "Directory.Packages.pro
 Ensure-DirectoryPackagesProps -Path $directoryPackagesPath
 
 [xml]$directoryPackagesDocument = Get-Content -LiteralPath $directoryPackagesPath -Raw
-$packageVersions = [ordered]@{}
+$packageVersions = @{}
 $packageSources = @{}
 
 $existingPackageVersionNodes = $directoryPackagesDocument.SelectNodes("/*[local-name()='Project']/*[local-name()='ItemGroup']/*[local-name()='PackageVersion']")
