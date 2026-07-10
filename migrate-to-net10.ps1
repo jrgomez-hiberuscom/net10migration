@@ -222,8 +222,9 @@ function Update-CSharpApiReferences {
     $replacements = @(
         @{ Old = 'builder.ConfigurarProxyDesdeAppSettings()'; New = 'builder.AddSsidArqNetAtekaProxyFromAppSettings()' },
         @{ Old = 'app.UsarProxyDesdeAppSettings()';           New = 'app.UseSsidArqNetProxy()' },
-        @{ Old = 'AddSsidArqNetTokenExchangerFromSettingsgs('; New = 'AddSsidArqNetTokenExchangerFromSettings(' },
+        @{ Old = 'RegistrarTokenExchangerFromSettings('; New = 'AddSsidArqNetTokenExchangerFromSettings(' },
         @{ Old = 'ConfigurarOpenApiNet(';                     New = 'AddSsidArqNetOpenApiClientFromAppSettings(' },
+		@{ Old = 'using SsidArqNet.Ateka.TokenExchanger.Extensions;'; New = 'using SsidArqNet.Ateka.TokenExchanger.Extensions.Extensions;' },
         @{ Old = 'ensamblado:';                               New = 'defaultAssembly:' }
     )
 
