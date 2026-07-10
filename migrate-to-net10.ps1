@@ -110,8 +110,10 @@ $packageSources = @{}
 
 $existingPackageVersionNodes = $directoryPackagesDocument.SelectNodes("/*[local-name()='Project']/*[local-name()='ItemGroup']/*[local-name()='PackageVersion']")
 foreach ($packageVersionNode in $existingPackageVersionNodes) {
-    $packageName = $packageVersionNode.Attributes["Include"]?.Value
-    $versionValue = $packageVersionNode.Attributes["Version"]?.Value
+    $includeAttribute = $packageVersionNode.Attributes["Include"]
+    $versionAttribute = $packageVersionNode.Attributes["Version"]
+    $packageName = if ($includeAttribute) { $includeAttribute.Value } else { $null }
+    $versionValue = if ($versionAttribute) { $versionAttribute.Value } else { $null }
     if ([string]::IsNullOrWhiteSpace($packageName) -or [string]::IsNullOrWhiteSpace($versionValue)) {
         continue
     }
