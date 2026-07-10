@@ -146,8 +146,8 @@ function Compare-PackageVersion {
         }
 
         return @{
-            Core = $coreNumbers
-            PreRelease = if ([string]::IsNullOrWhiteSpace($preReleaseText)) { @() } else { $preReleaseText -split '\.' }
+            Core = @($coreNumbers)
+            PreRelease = @(if ([string]::IsNullOrWhiteSpace($preReleaseText)) { @() } else { $preReleaseText -split '\.' })
             Original = $VersionText
         }
     }
