@@ -1,0 +1,16 @@
+
+{
+  "NombreApellidos": "José María Gutiérrez",
+  "DNI": "73567890C",
+  "Telefono": "689568134",
+  "CorreoElectronico": "correo@gmail.com",
+  "NombreRepresentando": "Rosa López García",
+  "DNIRepresentando": "78906458",
+  "CCCRepresentando": "CCCPrueba",
+   "Direccion": "Calle Mayor, 5",
+  "Municipio": "Pamplona",
+  "CodigoPostal": "31011",
+  "Provincia": "Navarra",
+  "LugarEmision": "Tudela",
+  "FechaEmision": "2025-11-14"
+}

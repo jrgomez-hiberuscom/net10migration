@@ -1,0 +1,261 @@
+﻿<!-- Todos los reportes deben heredar de la clase SsidArqNetReportBase -->
+
+@inherits SsidArqNetReportBase<List<ListadoCandidatos.DatosInforme>>
+
+<!-- Aquí comienza el reporte -->
+
+<SsidArqNetReportPage>
+
+    <p class="TituloInforme">Candidatos de renta basica</p>
+
+    @foreach (DatosInforme datoInforme in Model)
+    {
+        <header>
+            <div>
+                <span class="TituloCandidatura">Nombre Oferta: </span>
+                <span class="TextoCandidatura">@datoInforme.InfoOferta.NombreOferta</span>
+            </div>
+            <div>
+                <span class="TituloCandidatura">Estado de la oferta:</span>
+                <span class="TextoCandidatura">@MostrarTextoActiva(datoInforme.InfoOferta.Activa)</span>
+            </div>
+            <div>
+                <span class="TituloCandidatura">Fecha de alta:</span>
+                <span class="TextoCandidatura">@datoInforme.InfoOferta.FAlta</span>
+            </div>
+            <div>
+                <span class="TituloCandidatura">DNI usuario carga:</span>
+                <span class="TextoCandidatura">@datoInforme.InfoOferta.DniUsuarioCarga</span>
+            </div>
+            &nbsp;
+        </header>
+
+        <main>
+            <table>
+                <tr>
+                    <th>Situacion RG</th>
+                    <th>F.F. Sit<br />F.S. Tram.<br />F.I. Susp.</th>
+                    <th>Disponible Empleo</th>
+                    <th>Dni</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Municipio</th>
+                    <th>Edad</th>
+                    <th>Telefonos</th>
+                    <th>F. Inscrip.</th>
+                    <th>Aut. admva.</th>
+                    <th>F. Fin vigencia</th>
+                    <th>F. Sol Renovación</th>
+                    <th>Dni usuario selección</th>
+                    <th>F. Selección</th>
+                </tr>
+
+                @foreach (Candidato candidato in datoInforme.Candidatos)
+                {
+                    <tr>
+                        <td>@candidato.rentaGarantizada.Situacion</td>
+                        <td> @candidato.rentaGarantizada.Fecha_dato</td>
+
+                        <td>
+                            @if (!candidato.NoDisponible_SNE)
+                            {
+                                <text>Disponible</text>
+                            }
+                            else
+                            {
+                                <text>No disponible</text>
+                            }
+                        </td>
+                        <td>@candidato.DniNie</td>
+                        <td>@candidato.Nombre</td>
+                        <td>@candidato.Apellido1 @candidato.Apellido2</td>
+                        <td>@candidato.Municipio</td>
+                        <td>
+                            @if (candidato.Edad != 0)
+                            {
+                                @candidato.Edad
+                            }
+                        </td>
+                        <td>
+                            @candidato.Telefono1 <br />
+                            @candidato.Telefono2 <br />
+                            @candidato.Telefono3 <br />
+                            @candidato.Telefono4 <br />
+                        </td>
+
+                        <td>@candidato.FechaInscripcion</td>
+                        <td>@candidato.TipoAutorizacionAdministrativa</td>
+                        <td>@candidato.FinVigencia</td>
+                        <td>@candidato.FSolicitudRenovacion</td>
+                        <td>@candidato.DniUsuarioSeleccion</td>
+                        <td>@candidato.FSeleccion</td>
+                    </tr>
+                    <tr class="FilaSinBorde">
+                        <td colspan="15" class="textLeft">
+                            <strong>IMV:</strong>
+                            @MostrarTextoSituacionIMV(candidato.ingresoMinimoVital.SituacionIMV) &nbsp;
+                            @MostrarPeriodoIMV(candidato.ingresoMinimoVital.FInicioPagoIMV, candidato.ingresoMinimoVital.FFinPagoIMV)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </main>
+        <br />
+    }
+
+</SsidArqNetReportPage>
+
+<!-- Añadimos los estilos dentro del head del documento html generado -->
+
+<SectionContent SectionName="@HeadContentSectionId">
+
+    <style>
+
+        .TituloInforme {
+            font-size: 13pt;
+            color: #000000;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .TituloCandidatura {
+            font-size: 9pt;
+            color: #000000;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+        }
+
+        .TextoCandidatura {
+            font-size: 9pt;
+            color: #000000;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: normal;
+        }
+
+        .FilaSinBorde {
+            border: none
+        }
+
+        .textCentered{
+            text-align: center;
+        }
+
+        .textLeft {
+            text-align: left;
+        }
+
+        .textRight {
+            text-align: right;
+        }
+
+        table {
+            border-collapse: collapse;
+            min-width: 100%;
+            max-width: 100%;
+            text-align: center;
+            border: 1px solid black;
+        }
+
+        tr {
+            border: 1px solid black;
+            border-bottom: none !important;
+        }
+
+        td {
+            padding: 5px;
+            font-size: 7pt;
+            color: #000000;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: left;
+            font-weight: normal;
+        }
+
+        th {
+            padding: 5px;
+            font-size: 6pt;
+            color: #000000;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: left;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    </style>
+
+</SectionContent>
+
+@code {
+
+    public class DatosInforme
+    {
+        public InfoOferta InfoOferta { get; set; }
+        public List<Candidato> Candidatos { get; set; }
+    }
+
+    public class Candidato
+    {
+        public String DniUsuarioSeleccion { get; set; }
+        public bool NoDisponible_SNE { get; set; }
+        public int IdCandidato { get; set; }
+        public String DniNie { get; set; }
+        public String Nombre { get; set; }
+        public String Apellido1 { get; set; }
+        public String Apellido2 { get; set; }
+        public String Municipio { get; set; }
+        public int Edad { get; set; }
+        public String Telefono1 { get; set; }
+        public String Telefono2 { get; set; }
+        public String Telefono3 { get; set; }
+        public String Telefono4 { get; set; }
+        public String FechaInscripcion { get; set; }
+        public String TipoAutorizacionAdministrativa { get; set; }
+        public String FinVigencia { get; set; }
+        public String FSolicitudRenovacion { get; set; }
+        public String FSeleccion { get; set; }
+        public RentaGarantizada rentaGarantizada { get; set; }
+        public IngresoMinimoVital ingresoMinimoVital { get; set; }
+    }
+
+    public class InfoOferta
+    {
+        public String NombreOferta { get; set; }
+        public bool Activa { get; set; }
+        public String FAlta { get; set; }
+        public String DniUsuarioCarga { get; set; }
+    }
+
+    public class RentaGarantizada
+    {
+        public String Situacion { get; set; }
+        public String Fecha_dato { get; set; }
+    }
+
+    public class IngresoMinimoVital
+    {
+        public string SituacionIMV { get; set; }
+        public String FInicioPagoIMV { get; set; }
+        public String FFinPagoIMV { get; set; }
+    }
+
+    private string MostrarTextoActiva(bool activa)
+    {
+        return activa ? "Activa" : string.Empty;
+    }
+
+    private string MostrarTextoSituacionIMV(string SituacionIMV)
+    {
+        return string.IsNullOrWhiteSpace(SituacionIMV.Trim()) ? "Sin información" : SituacionIMV;
+    }
+
+    private string MostrarPeriodoIMV(string FechaDesde, string FechaHasta)
+    {
+        var textoFechas = string.Empty;
+
+        if (!string.IsNullOrEmpty(FechaDesde) && !string.IsNullOrEmpty(FechaHasta))
+            textoFechas = "Desde " + FechaDesde + " hasta " + FechaHasta;
+
+        return textoFechas;
+    }
+
+}

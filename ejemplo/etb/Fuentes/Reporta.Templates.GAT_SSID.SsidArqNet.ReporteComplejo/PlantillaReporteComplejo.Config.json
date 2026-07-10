@@ -1,0 +1,16 @@
+{
+  "Report": {
+    "Hash": "223B81EBA582A4EC24988AD5F338FE0CC867E4A94BDA1F692019BC4FCE0816C8",
+    "Name": "PlantillaReporteComplejo",
+    "Namespace": "Reporta.Templates.GAT_SSID.SsidArqNet.ReporteComplejo",
+    "TypeFullName": "Reporta.Templates.GAT_SSID.SsidArqNet.ReporteComplejo.PlantillaReporteComplejo",
+    "ProjectName": "Reporta.Templates.GAT_SSID.SsidArqNet.ReporteComplejo",
+    "Orientation": "Portrait"
+  },
+  "TemplateBuilder": {
+    "RenderHtmlSameWindow": true,
+    "RenderHtmlNewWindow": true,
+    "RenderPdfNewWindow": true,
+    "AllowedToPublish": false
+  }
+}

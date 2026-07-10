@@ -1,0 +1,16 @@
+{
+  "Report": {
+    "Hash": "0C5C3769139B71B83F54FA38C220D482E45A2D5B7137B052E798BE77DE090B9E",
+    "Name": "RepresentanteEmpresa",
+    "Namespace": "Reporta.Templates.Empleo.EmpleoIntermediacion.RepresentanteEmpresa",
+    "TypeFullName": "Reporta.Templates.Empleo.EmpleoIntermediacion.RepresentanteEmpresa.RepresentanteEmpresa",
+    "ProjectName": "Reporta.Templates.Empleo.EmpleoIntermediacion.RepresentanteEmpresa",
+    "Orientation": "Portrait"
+  },
+  "TemplateBuilder": {
+    "RenderHtmlSameWindow": true,
+    "RenderHtmlNewWindow": false,
+    "RenderPdfNewWindow": false,
+    "AllowedToPublish": true
+  }
+}

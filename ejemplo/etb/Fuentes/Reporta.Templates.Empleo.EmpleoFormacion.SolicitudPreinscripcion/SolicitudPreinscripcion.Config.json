@@ -1,0 +1,16 @@
+{
+  "Report": {
+    "Hash": "2D89FE87EDA6F2D51563115AC50E71AB96014A4381180749DDBD5C44DCE32765",
+    "Name": "SolicitudPreinscripcion",
+    "Namespace": "Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcion",
+    "TypeFullName": "Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcion.SolicitudPreinscripcion",
+    "ProjectName": "Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcion",
+    "Orientation": "Portrait"
+  },
+  "TemplateBuilder": {
+    "RenderHtmlSameWindow": true,
+    "RenderHtmlNewWindow": true,
+    "RenderPdfNewWindow": true,
+    "AllowedToPublish": true
+  }
+}

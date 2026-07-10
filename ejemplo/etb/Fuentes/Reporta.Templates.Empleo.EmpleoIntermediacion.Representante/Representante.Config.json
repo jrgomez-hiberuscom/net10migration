@@ -1,0 +1,16 @@
+{
+  "Report": {
+    "Hash": "7FD2A2002AD174D0EB2F04B92161911F5E301DB7CC242EE7F41325508553C58A",
+    "Name": "Representante",
+    "Namespace": "Reporta.Templates.Empleo.EmpleoIntermediacion.Representante",
+    "TypeFullName": "Reporta.Templates.Empleo.EmpleoIntermediacion.Representante.Representante",
+    "ProjectName": "Reporta.Templates.Empleo.EmpleoIntermediacion.Representante",
+    "Orientation": "Portrait"
+  },
+  "TemplateBuilder": {
+    "RenderHtmlSameWindow": true,
+    "RenderHtmlNewWindow": false,
+    "RenderPdfNewWindow": false,
+    "AllowedToPublish": true
+  }
+}

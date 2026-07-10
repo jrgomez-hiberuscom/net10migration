@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <base href="@Configuration[key: "BaseHref"]" />
+        <link rel="stylesheet" href="css/app.css" />
+        <link rel="stylesheet" href="Reporta.TemplateBuilder.styles.css" />
+        <link rel="icon" type="image/x-icon" href="images/ReportaTemplateBuilder.ico" />
+        <HeadOutlet />
+    </head>
+    <body>
+        <Routes @rendermode=RenderMode.InteractiveServer />
+        <script src="_framework/blazor.web.js"></script>
+    </body>
+</html>

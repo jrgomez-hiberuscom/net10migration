@@ -1,0 +1,131 @@
+﻿{
+  "ServicioAfectado": {
+    "Nombre": "Atención Primaria",
+    "Motivo": "Consulta General",
+    "Programa": "Salud Mental",
+    "Estado": "Activo",
+    "IDProfesionalPerfil": "ID123",
+    "FechaInicioPlan": "2024-12-04T12:24:00",
+    "PeriodoVigencia": "2024-2025"
+  },
+  "Profesionales": [
+    {
+      "IDProfesional": "Prof1",
+      "Perfil": "Psicólogo"
+    },
+    {
+      "IDProfesional": "Prof2",
+      "Perfil": "Trabajador Social"
+    },
+    {
+      "IDProfesional": "Prof3",
+      "Perfil": "Psiquiatra"
+    }
+  ],
+  "PersonaUsuaria": {
+    "NombreApellidos": "Juan Pérez",
+    "DNI_NIE_Pasaporte": "12345678X",
+    "Telefono": "600123456",
+    "CorreoElectronico": "juan.perez@example.com",
+    "FechaNacimiento": "1985-01-01T00:00:00"
+  },
+  "UnidadFamiliar": {
+    "N_Miembros_UF": 4,
+    "N_De_Menores_UF": 2,
+    "Miembros": [
+      {
+        "NombreApellidos": "Ana Pérez",
+        "Parentesco": "Esposa",
+        "Convive": "Sí",
+        "Cuidador": "No",
+        "Representante": "No",
+        "FechaNacimiento": "1986-02-02T00:00:00"
+      },
+      {
+        "NombreApellidos": "Pedro Pérez",
+        "Parentesco": "Hijo",
+        "Convive": "Sí",
+        "Cuidador": "No",
+        "Representante": "No",
+        "FechaNacimiento": "2010-03-03T00:00:00"
+      }
+    ]
+  },
+  "Finalizacion": {
+    "Motivo": "Motivo Especial",
+    "Fecha": "2025-06-04T12:24:00"
+  },
+  "Aceptacion": {
+    "Motivo": "Motivo de Aceptación",
+    "RestuladoAceptacion": true,
+    "TextoAceptacion": "Texto de aceptación."
+  },
+  "AmbitosPlan": [
+    {
+      "ObjetivosAmbito": [
+        {
+          "Descripcion": "Mejorar la salud mental",
+          "PeriodoEjecucion": "2024-2025",
+          "PersonasObjetivo": "Juan Pérez",
+          "GradoCumplimiento": "En progreso",
+          "ObjetivosEspecificos": [
+            {
+              "Descripcion": "Participar en sesiones de terapia",
+              "PeriodoEjecucion": "Mensual",
+              "Actuaciones": [
+                {
+                  "Descripcion": "Sesión de terapia individual",
+                  "Completado": "Sí"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ObjetivosAmbito": [
+        {
+          "Descripcion": "Mejorar la condición física",
+          "PeriodoEjecucion": "2024-2025",
+          "PersonasObjetivo": "Juan Pérez",
+          "GradoCumplimiento": "En progreso",
+          "ObjetivosEspecificos": [
+            {
+              "Descripcion": "Participar en actividades deportivas",
+              "PeriodoEjecucion": "Mensual",
+              "Actuaciones": [
+                {
+                  "Descripcion": "Sesión de entrenamiento personal",
+                  "Completado": "Sí"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ObjetivosAmbito": [
+        {
+          "Descripcion": "Mejorar las habilidades sociales",
+          "PeriodoEjecucion": "2024-2025",
+          "PersonasObjetivo": "Juan Pérez",
+          "GradoCumplimiento": "En progreso",
+          "ObjetivosEspecificos": [
+            {
+              "Descripcion": "Participar en talleres de habilidades sociales",
+              "PeriodoEjecucion": "Mensual",
+              "Actuaciones": [
+                {
+                  "Descripcion": "Taller de habilidades sociales",
+                  "Completado": "Sí"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

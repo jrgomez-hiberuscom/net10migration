@@ -1,0 +1,16 @@
+{
+  "Report": {
+    "Hash": "8864F73C2EC83D40CA9BA04FB258100AFB690471B8573646357A6B8C9695229D",
+    "Name": "ListadoCandidatos",
+    "Namespace": "Reporta.Templates.Empleo.Crb.ListadoCandidatos",
+    "TypeFullName": "Reporta.Templates.Empleo.Crb.ListadoCandidatos.ListadoCandidatos",
+    "ProjectName": "Reporta.Templates.Empleo.Crb.ListadoCandidatos",
+    "Orientation": "Landscape"
+  },
+  "TemplateBuilder": {
+    "RenderHtmlSameWindow": true,
+    "RenderHtmlNewWindow": true,
+    "RenderPdfNewWindow": true,
+    "AllowedToPublish": true
+  }
+}

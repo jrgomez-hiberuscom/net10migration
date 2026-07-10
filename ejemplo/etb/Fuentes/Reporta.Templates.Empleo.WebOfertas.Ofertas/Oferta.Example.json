@@ -1,0 +1,44 @@
+{
+  "Publicacion": "2026-02-09",
+  "Codigo": "OF-2026-0001",
+  "Vacantes": 2,
+  "Titulo": "Desarrollador/a .NET",
+  "Horario": "08:00 - 15:00",
+  "Jornada": "Completa",
+  "Contrato": "Indefinido",
+  "Localidad": "Pamplona",
+  "Zona": "Comarca de Pamplona",
+  "Latitud": 42.812526,
+  "Longitud": -1.645775,
+  "Url": "https://empleo.navarra.es/ofertas/OF-2026-0001",
+  "Empresa": "Empresa Ejemplo S.L.",
+  "Salario": "30.000 € – 40.000 € brutos/año",
+  "Duracion": "Estable",
+  "Observaciones": "Incorporación inmediata.\nSe valorará Blazor y .NET 8.",
+  "Vehiculo": true,
+  "Funciones": [
+      "Desarrollo de aplicaciones web en .NET"
+  ],
+  "Experiencias": [
+    "2 años de experiencia en .NET"
+  ],
+  "Estudios": [
+    "Grado o FP Superior"
+  ],
+  "Formaciones": [
+    "FP Superior / Grado"
+  ],
+  "Idiomas": [
+    "Inglés técnico"
+  ],
+  "Carnets": [
+      "B"
+  ],
+  "Otros": [
+    "Git",
+    "Blazor"
+  ],
+  "Preguntas": [
+      "¿Disponibilidad inmediata?"
+  ]
+}

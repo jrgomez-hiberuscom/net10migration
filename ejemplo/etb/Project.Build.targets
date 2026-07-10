@@ -1,0 +1,11 @@
+<Project>
+
+	<!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="%25VSFIRMA%25 $(TargetDir)$(MSBuildProjectName).dll" />
+	</Target>-->
+	
+	<Target Name="PreBuild_FormatCode" Condition="'$(DOTNET_ENVIRONMENT)' != 'VAL' And '$(Configuration)' == 'Release'" BeforeTargets="Build">
+		<Exec Command="dotnet format" />
+	</Target>
+
+</Project>

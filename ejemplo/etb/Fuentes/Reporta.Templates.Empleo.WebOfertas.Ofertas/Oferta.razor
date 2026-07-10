@@ -1,0 +1,286 @@
+﻿<!-- Todos los reportes deben heredar de la clase SsidArqNetReportBase -->
+@inherits SsidArqNetReportBase<Oferta.OfertaModel>
+
+<SsidArqNetReportPage>
+
+    <div class="o">
+
+        <header class="o__header">
+            <h1 class="o__title">@Model.Titulo</h1>
+
+            <div class="o__meta">
+                <span><b>Publicada:</b> @FormatDate(Model.Publicacion)</span>
+                <span><b>Nº:</b> @Model.Codigo</span>
+            </div>
+        </header>
+
+        <div class="o__divider"></div>
+
+        
+        <section class="o__card o__noBreak">
+            <div class="kvGrid">
+                <div class="kv"><span class="k">Vacantes:</span><span class="v">@TextOrDash(Model.Vacantes.ToString())</span></div>
+                <div class="kv"><span class="k">Empresa:</span><span class="v">@TextOrDash(Model.Empresa)</span></div>
+
+                <div class="kv"><span class="k">Tipo de contrato:</span><span class="v">@TextOrDash(Model.Contrato)</span></div>
+                <div class="kv"><span class="k">Salario bruto anual:</span><span class="v">@TextOrDash(Model.Salario)</span></div>
+
+                <div class="kv"><span class="k">Tipo de jornada:</span><span class="v">@TextOrDash(Model.Jornada)</span></div>
+                <div class="kv"><span class="k">Localidad:</span><span class="v">@TextOrDash(Model.Localidad)</span></div>
+
+                <div class="kv"><span class="k">Horario:</span><span class="v">@TextOrDash(Model.Horario)</span></div>
+                <div class="kv"><span class="k">Estudios:</span><span class="v">@RenderCompactList(Model.Estudios)</span></div>
+            </div>
+        </section>
+
+        <div class="o__divider"></div>
+
+        <section class="o__section o__noBreak">
+            <h2 class="o__h2">Funciones y tareas</h2>
+            @RenderCompactList(Model.Funciones)
+        </section>
+
+        <div class="o__divider"></div>
+
+        <section class="o__section">
+            <h2 class="o__h2">Requisitos</h2>
+
+            
+            <div class="reqGrid">
+
+                <div class="reqCard o__noBreak">
+                    <div class="reqTitle">Experiencia profesional</div>
+                    @RenderCompactList(Model.Experiencias)
+                </div>
+
+                <div class="reqCard o__noBreak">
+                    <div class="reqTitle">Formación complementaria</div>
+                    @RenderCompactList(Model.Formaciones)
+                </div>
+
+                <div class="reqCard o__noBreak">
+                    <div class="reqTitle">Idiomas</div>
+                    @RenderCompactList(Model.Idiomas)
+                </div>
+
+                <div class="reqCard o__noBreak">
+                    <div class="reqTitle">Permiso de conducir</div>
+                    @RenderCompactList(Model.Carnets)
+                </div>
+
+                <div class="reqCard o__noBreak">
+                    <div class="reqTitle">Otros requisitos</div>
+                    @RenderCompactList(Model.Otros)
+                </div>
+
+                <div class="reqCard o__noBreak">
+                    <div class="reqTitle">Observaciones</div>
+                    @if (!string.IsNullOrWhiteSpace(Model.Observaciones))
+                    {
+                        <div class="txt">@ToMultiline(Model.Observaciones)</div>
+                    }
+                    else
+                    {
+                        <div class="empty">-</div>
+                    }
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+</SsidArqNetReportPage>
+
+<SectionContent SectionName="@HeadContentSectionId">
+    <style>
+        
+        .o {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #222;
+            font-size: 9pt; 
+        }
+
+      
+        .o__header {
+            margin-bottom: 6px;
+        }
+
+        .o__title {
+            font-size: 16pt;
+            font-weight: 700;
+            margin: 0 0 6px 0;
+        }
+
+        .o__meta {
+            font-size: 9pt;
+            color: #666;
+            display: flex;
+            gap: 18px;
+        }
+
+        .o__meta b {
+            font-weight: 700;
+            color: #666;
+        }
+
+
+        .o__divider {
+            border-top: 1px solid #ddd;
+            margin: 10px 0;
+        }
+
+      
+        .o__h2 {
+            font-size: 12pt;
+            font-weight: 700;
+            margin: 0 0 6px 0;
+        }
+
+        
+        .o__card {
+            padding: 8px 10px;
+        }
+
+        
+        .o__noBreak {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+       
+        .kvGrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 26px;
+            row-gap: 4px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        .kv {
+            display: flex;
+            gap: 6px;
+            align-items: baseline;
+        }
+
+        .k {
+            font-weight: 700;
+            color: #555;
+            min-width: 128px;
+        }
+
+        .v {
+            color: #222;
+        }
+
+     
+        .compactList {
+            margin: 0;
+            padding-left: 14px;
+        }
+
+        .compactList li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .empty {
+            color: #666;
+        }
+
+        .txt {
+            line-height: 1.25;
+        }
+
+       
+        .reqGrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 18px;
+        }
+
+        .reqCard {
+            padding: 8px 10px;
+            border-left: 2px solid #eee;
+        }
+
+        .reqTitle {
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #333;
+        }
+
+       
+    </style>
+</SectionContent>
+
+@code {
+
+    public class OfertaModel
+    {
+        public DateTime Publicacion   { get; set; }
+        public string   Codigo        { get; set; } = string.Empty;
+        public string   Titulo        { get; set; } = string.Empty;
+        public int      Vacantes      { get; set; }
+        public string   Localidad     { get; set; } = string.Empty;
+        public string?  Empresa       { get; set; }
+
+        public string   Contrato      { get; set; } = string.Empty;
+        public string   Jornada       { get; set; } = string.Empty;
+        public string?  Horario       { get; set; }
+        public string?  Salario       { get; set; }
+
+        public string?  Zona          { get; set; }
+        public decimal? Latitud       { get; set; }
+        public decimal? Longitud      { get; set; }
+        public string?  Url           { get; set; }
+        public string?  Duracion      { get; set; }
+        public bool?    Vehiculo      { get; set; }
+        public string?  Observaciones { get; set; }
+
+        public IEnumerable<string> Otros { get; set; } = [];
+        public IEnumerable<string> Carnets { get; set; } = [];
+        public IEnumerable<string> Idiomas { get; set; } = [];
+        public IEnumerable<string> Estudios { get; set; } = [];
+        public IEnumerable<string> Funciones { get; set; } = [];
+        public IEnumerable<string> Formaciones { get; set; } = [];
+        public IEnumerable<string> Experiencias { get; set; } = [];
+        public IEnumerable<string>? Preguntas { get; set; } = [];
+    }
+
+    private static string TextOrDash(string? s) => string.IsNullOrWhiteSpace(s) ? "-" : s;
+
+    private static string FormatDate(DateTime d) => d.ToString("dd/MM/yyyy");
+
+    private MarkupString ToMultiline(string? text)
+    {
+        var safe = (text ?? string.Empty)
+            .Replace("&", "&amp;")
+            .Replace("<", "&lt;")
+            .Replace(">", "&gt;")
+            .Replace("\r\n", "\n")
+            .Replace("\n", "<br/>");
+
+        return new MarkupString(safe);
+    }
+
+    private RenderFragment RenderCompactList(IEnumerable<string> items) => builder =>
+    {
+        if (items is null || !items.Any())
+        {
+            builder.AddMarkupContent(0, "<div class=\"empty\">-</div>");
+            return;
+        }
+
+        builder.AddMarkupContent(1, "<ul class=\"compactList\">");
+        var seq = 2;
+        foreach (var i in items)
+        {
+            builder.AddMarkupContent(seq++, "<li>");
+            builder.AddContent(seq++, i);
+            builder.AddMarkupContent(seq++, "</li>");
+        }
+        builder.AddMarkupContent(seq++, "</ul>");
+    };
+}

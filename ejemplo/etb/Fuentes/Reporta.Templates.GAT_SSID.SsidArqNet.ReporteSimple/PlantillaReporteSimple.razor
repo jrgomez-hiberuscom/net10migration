@@ -1,0 +1,32 @@
+﻿<!-- Todos los reportes deben heredar de la clase SsidArqNetReportBase -->
+
+@inherits SsidArqNetReportBase<PlantillaReporteSimple.PlantillaReporteSimpleModelo>
+
+<!-- Aquí comienza el reporte -->
+
+<SsidArqNetReportPage>
+
+    <header>
+        <h1>Soy @Model.Nombre @Model.Apellido</h1>
+    </header>
+
+    <main>
+        Tengo @Model.Edad años
+    </main>
+
+    <footer>
+        Pie de Página del Report
+    </footer>
+
+</SsidArqNetReportPage>
+
+@code{
+
+    public class PlantillaReporteSimpleModelo
+    {
+        public required string Nombre { get; set; }
+        public required string Apellido { get; set; }
+        public int Edad { get; set; }
+    }
+
+}

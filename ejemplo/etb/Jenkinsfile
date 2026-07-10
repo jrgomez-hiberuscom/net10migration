@@ -1,0 +1,125 @@
+@Library('gn-jenkinspipeline-library@Pipeline_DOTNET') _
+
+String extensionRama = (env.BRANCH_NAME == "master") ? "" : "_" + env.BRANCH_NAME
+
+String nombreSolucion = "Reporta.TemplateBuilder"
+
+def nombreProyectoTemplateBuilder = "Reporta.TemplateBuilder"
+def nombreProyectoTemplateBuilderConSeccion = "Empleo.${nombreProyectoTemplateBuilder}"
+
+def userParam = [
+    VersionBase: "1.0.0",
+    FicheroSolucion: "${nombreSolucion}.sln",
+    Unidad: "gatSsid",
+    Test: [
+        Skip: false,
+        EndPipelineOnFail: true,
+        Filtro: ""
+    ],
+    Producto: "${nombreSolucion}",
+    QualityAnalysis: [
+        LaunchAnalysisByDefault: true,
+        Exclusions: ["**/wwwroot/lib/**"],
+        QualityProfile: "Perfil DGTD",
+        QualityGate: "SSID",
+        StopWhenQualityGateFail: true,
+        Tags: ["ssid", "reporta"]
+    ],
+    GitRepository: [
+        Badges: [
+            [
+                Name: "TemplateBuilder",
+                LinkUrl: "https://val-frontend.admon-cfnavarra.es/${nombreProyectoTemplateBuilderConSeccion}",
+                CustomImage: [
+                    Subject: "TemplateBuilder",
+                    Status: [
+                        Text: "TemplateBuilder",
+                        Color: "purple"
+                    ]
+                ]
+            ]
+        ]
+    ],
+    Componentes: [
+        [
+            NombreProyecto: "Fuentes\\${nombreProyectoTemplateBuilder}",
+            Despliegue: [
+                TipoServidor: "Frontal",
+                TipoComponente: "ComponenteIIS",
+                SitioWeb: [
+                    DirectorioVirtual: "${nombreProyectoTemplateBuilderConSeccion}${extensionRama}",
+                    WindowsAuthentication: false
+                ],
+                Pool : [
+                    //Acortar el nombre por longitud de caracteres
+                    NombrePool: "${nombreProyectoTemplateBuilderConSeccion}_${env.BRANCH_NAME}_Pool"
+                ]
+            ]
+        ]
+    ]
+]
+
+def preBuildAction = {
+
+    println("Ejecuci�n de acciones PreBuild")
+
+    actualizarAppsSettingsComponenteVal(extensionRama, nombreProyectoTemplateBuilder, nombreProyectoTemplateBuilderConSeccion);
+
+}
+
+def actualizarAppsSettingsComponenteVal(String extensionRama, String nombreProyecto, String nombreProyectoConSeccion) {
+
+    // Leemos el fichero de configuraci�n correspondiente al entorno VAL
+
+    String rutaJsonVal = "Fuentes\\${nombreProyecto}\\appsettings.VAL.json"
+    def appSettingsVal = obtenerAppSettingsVal(rutaJsonVal, nombreProyecto)
+
+    // Realizamos los cambios necesarios en la configuraci�n
+
+    String nombreProyectoConSeccionMasRama = "${nombreProyectoConSeccion}${extensionRama}"
+
+    actualizarRamaBaseHref(appSettingsVal, nombreProyectoConSeccionMasRama)
+
+    // Guardamos los cambios realizados en el fichero de configuraci�n
+
+    writeJSON file:rutaJsonVal, json:appSettingsVal, pretty:2
+
+}
+
+def obtenerAppSettingsVal(String rutaJsonVal, String nombreProyecto) {
+
+    String rutaJson = "Fuentes\\${nombreProyecto}\\appsettings.json"
+
+    def appSettings = readJSON file:rutaJson, returnPojo:true
+    def appSettingsVal = readJSON file:rutaJsonVal, returnPojo:true
+
+    // Fusionar los datos (sobrescribiendo los valores del base con los de VAL)
+
+    appSettingsVal = appSettings + appSettingsVal
+
+    return appSettingsVal
+}
+
+def actualizarRamaBaseHref(def appSettingsVal, String nombreProyectoConSeccionMasRama) {
+
+    String baseHref = "/${nombreProyectoConSeccionMasRama}/"
+
+    appSettingsVal.BaseHref = baseHref
+
+    echo(message: "Se ha actualizado el valor del atributo BaseHref del componente ${nombreProyectoConSeccionMasRama} a: ${baseHref}")
+
+}
+
+def postBuildAction = {
+
+    println("Ejecuci�n de acciones PostBuild")
+
+}
+
+def postDeployAction = {
+
+    println("Ejecuci�n de acciones PostDeploy")
+
+}
+
+buildAndDeploy(userParam, preBuildAction, postBuildAction, postDeployAction)

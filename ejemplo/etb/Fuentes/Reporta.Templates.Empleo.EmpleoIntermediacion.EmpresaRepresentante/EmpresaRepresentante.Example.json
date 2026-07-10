@@ -1,0 +1,31 @@
+{
+  "NombreApellidos": "José María Gutiérrez",
+  "DNI": "73567890C",
+  "Telefono": "689568134",
+  "CorreoElectronico": "correo@gmail.com",
+  "NombreRepresentando": "Rosa López García",
+  "DNIRepresentando": "78906458",
+  "CCCRepresentando": "CCCPrueba",
+  "Direccion": "Calle Mayor, 5",
+  "Municipio": "Pamplona",
+  "CodigoPostal": "31011",
+  "Provincia": "Navarra",
+  "NombreEmpresa": "NombreEmpresa",
+  "DNIEmpresa":  "78907456F",
+  "LugarEmision": "Tudela",
+  "FechaEmision": "2025-11-14",
+  "Contactos": [
+    {
+      "NombreApellidos": "Pablo López García",
+      "DNI": "74589208G",
+      "Telefono": "672348915",
+      "CorreoElectronico": "pablo@gmail.com"
+    },
+    {
+      "NombreApellidos": "Sara Gutiérrez Méndez",
+      "DNI": "75890834D",
+      "Telefono": "657892457",
+      "CorreoElectronico": "sara@gmail.com"
+    }
+  ]
+}

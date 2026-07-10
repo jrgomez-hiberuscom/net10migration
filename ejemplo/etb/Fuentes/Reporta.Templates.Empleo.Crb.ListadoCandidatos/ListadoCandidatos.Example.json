@@ -1,0 +1,70 @@
+[
+  {
+    "InfoOferta": {
+      "NombreOferta": "pruebaEjemplo",
+      "Activa": true,
+      "FAlta": "01/01/2025",
+      "DniUsuarioCarga": "12345678A"
+    },
+    "Candidatos": [
+      {
+        "rentaGarantizada": {
+          "Situacion": "Perceptor",
+          "Fecha_dato": "01/01/2025"
+        },
+        "ingresoMinimoVital": {
+          "SituacionIMV": "Perceptor",
+          "FInicioPagoIMV": "01/01/2025",
+          "FFinPagoIMV": "01/01/2025"
+        },
+        "DniUsuarioSeleccion": "12345678A",
+        "NoDisponible_SNE": false,
+        "IdCandidato": 1,
+        "DniNie": "12345678A",
+        "Nombre": "JUAN",
+        "Apellido1": "LÓPEZ",
+        "Apellido2": "GARCÍA",
+        "Municipio": "Pamplona",
+        "Edad": 40,
+        "Telefono1": "12345678",
+        "Telefono2": "12345678",
+        "Telefono3": "12345678",
+        "Telefono4": "12345678",
+        "FechaInscripcion": "01/01/2025",
+        "TipoAutorizacionAdministrativa": "Perceptor",
+        "FinVigencia": "01/01/2025",
+        "FSolicitudRenovacion": "01/01/2025",
+        "FSeleccion": "01/01/2025"
+      },
+      {
+        "rentaGarantizada": {
+          "Situacion": "Perceptor",
+          "Fecha_dato": "01/01/2025"
+        },
+        "ingresoMinimoVital": {
+          "SituacionIMV": "Perceptor",
+          "FInicioPagoIMV": "01/01/2025",
+          "FFinPagoIMV": "01/01/2025"
+        },
+        "DniUsuarioSeleccion": "12345678A",
+        "NoDisponible_SNE": true,
+        "IdCandidato": 1,
+        "DniNie": "12345678A",
+        "Nombre": "JUAN",
+        "Apellido1": "LÓPEZ",
+        "Apellido2": "GARCÍA",
+        "Municipio": "Pamplona",
+        "Edad": 40,
+        "Telefono1": "12345678",
+        "Telefono2": "12345678",
+        "Telefono3": "12345678",
+        "Telefono4": "12345678",
+        "FechaInscripcion": "01/01/2025",
+        "TipoAutorizacionAdministrativa": "Perceptor",
+        "FinVigencia": "01/01/2025",
+        "FSolicitudRenovacion": "01/01/2025",
+        "FSeleccion": "01/01/2025"
+      }
+    ]
+  }
+]

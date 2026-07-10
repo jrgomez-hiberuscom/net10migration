@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.22" />
+		<PackageReference Include="SsidArqNet.Ateka.PublisherProxy" Version="1.0.1" />
+		<PackageReference Include="SsidArqNet.InternalComponents.Blazor.TemplateBuilder" Version="1.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcionLote\Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcionLote.csproj" />
+		<ProjectReference Include="..\Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcion\Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcion.csproj" />
+		<ProjectReference Include="..\Reporta.Templates.Empleo.EmpleoIntermediacion.EmpresaRepresentante\Reporta.Templates.Empleo.EmpleoIntermediacion.EmpresaRepresentante.csproj" />
+		<ProjectReference Include="..\Reporta.Templates.Empleo.EmpleoIntermediacion.RepresentanteEmpresa\Reporta.Templates.Empleo.EmpleoIntermediacion.RepresentanteEmpresa.csproj" />
+		<ProjectReference Include="..\Reporta.Templates.Empleo.Crb.ListadoCandidatos\Reporta.Templates.Empleo.Crb.ListadoCandidatos.csproj" />
+		<ProjectReference Include="..\Reporta.Templates.Empleo.EmpleoFormacion.FichaCurso\Reporta.Templates.Empleo.EmpleoFormacion.FichaCurso.csproj" />
+		<ProjectReference Include="..\Reporta.Templates.Empleo.EmpleoIntermediacion.Representante\Reporta.Templates.Empleo.EmpleoIntermediacion.Representante.csproj" />
+		<ProjectReference Include="..\Reporta.Templates.Empleo.Raf.CertificadoProvisional\Reporta.Templates.Empleo.Raf.CertificadoProvisional.csproj" />
+		<ProjectReference Include="..\Reporta.Templates.Empleo.WebOfertas.Ofertas\Reporta.Templates.Empleo.WebOfertas.Ofertas.csproj" />
+		<ProjectReference Include="..\Reporta.Templates.GAT_SSID.SsidArqNet.ReporteSimple\Reporta.Templates.GAT_SSID.SsidArqNet.ReporteSimple.csproj" />
+		<ProjectReference Include="..\Reporta.Templates.GAT_SSID.SsidArqNet.ReporteComplejo\Reporta.Templates.GAT_SSID.SsidArqNet.ReporteComplejo.csproj" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<SatelliteResourceLanguages>en;es;eu</SatelliteResourceLanguages>
+	</PropertyGroup>
+
+	<Import Project="../../Project.Build.targets" />
+
+</Project>

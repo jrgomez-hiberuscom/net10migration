@@ -1,0 +1,16 @@
+{
+  "Report": {
+    "Hash": "961A5CD0F230A65C18BA90F2EF809048095D66D744D5A7B98D01956821CAD800",
+    "Name": "CertificadoProvisional",
+    "Namespace": "Reporta.Templates.Empleo.Raf.CertificadoProvisional",
+    "TypeFullName": "Reporta.Templates.Empleo.Raf.CertificadoProvisional.CertificadoProvisional",
+    "ProjectName": "Reporta.Templates.Empleo.Raf.CertificadoProvisional",
+    "Orientation": "Portrait"
+  },
+  "TemplateBuilder": {
+    "RenderHtmlSameWindow": true,
+    "RenderHtmlNewWindow": false,
+    "RenderPdfNewWindow": false,
+    "AllowedToPublish": true
+  }
+}

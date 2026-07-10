@@ -1,0 +1,16 @@
+{
+  "Report": {
+    "Hash": "CB974F894A699E3949CF04EE0B6C36FE2DFB6D8FCEF8FF75C876C3DE34A019FF",
+    "Name": "PlantillaReporteSimple",
+    "Namespace": "Reporta.Templates.GAT_SSID.SsidArqNet.ReporteSimple",
+    "TypeFullName": "Reporta.Templates.GAT_SSID.SsidArqNet.ReporteSimple.PlantillaReporteSimple",
+    "ProjectName": "Reporta.Templates.GAT_SSID.SsidArqNet.ReporteSimple",
+    "Orientation": "Landscape"
+  },
+  "TemplateBuilder": {
+    "RenderHtmlSameWindow": true,
+    "RenderHtmlNewWindow": false,
+    "RenderPdfNewWindow": false,
+    "AllowedToPublish": false
+  }
+}

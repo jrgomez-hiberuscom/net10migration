@@ -1,0 +1,16 @@
+{
+  "Report": {
+    "Hash": "A49AE3D4359DC0CB3C3C31343FC87AE4B3D6E0EA8247EFB2CA832542DEAB3D5F",
+    "Name": "Oferta",
+    "Namespace": "Reporta.Templates.Empleo.WebOfertas.Ofertas",
+    "TypeFullName": "Reporta.Templates.Empleo.WebOfertas.Ofertas.Oferta",
+    "ProjectName": "Reporta.Templates.Empleo.WebOfertas.Ofertas",
+    "Orientation": "Landscape"
+  },
+  "TemplateBuilder": {
+    "RenderHtmlSameWindow": false,
+    "RenderHtmlNewWindow": false,
+    "RenderPdfNewWindow": true,
+    "AllowedToPublish": true
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "Cabecera": {
+    "Logo1": "D_Educacion",
+    "Logo2": "MRR_FSE",
+    "Logo3": "MRR_GE_Ministerio",
+    "Logo4": "M_Educacion",
+    "Logo5": "M_EducacionFP"
+  },
+  "Curso": {
+    "DescAccion": "Curso intensivo para aprender los fundamentos de la programación en C#.",
+    "CodigoAccion": "15002CF",
+    "CodEspecialidad": "IFCD0210",
+    "Plazas": 25,
+    "Horas": 120,
+    "LugarImparticion": "Centro Formación Iturrondo LI, Avd. Villava, nº 1 - Telefono: 666666666",
+    "DescLocalidad": "BURLADA/BURLATA",
+    "DescModalidad": "Presencial",
+    "Objetivos": "dffyhdfhdfhdfhdfhdfhdf",
+    "RequisitosBasicos": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a finibus augue. Duis at orci molestie, tempor dolor vel, luctus lacus. Sed quis nibh quis tortor tincidunt efficitur. Suspendisse tincidunt, arcu dapibus condimentum dignissim, justo enim vehicula sapien, vel eleifend orci tortor non mi. <br> Phasellus urna leo, tempus vitae est sodales, ornare suscipit dui. Aenean accumsan ante ex, eu facilisis nulla fringilla laoreet. Sed at velit iaculis, convallis ipsum ac, mollis mauris. Fusce ultricies, ex a tincidunt facilisis, sem sapien accumsan nibh, id pellentesque sem elit commodo urna. In porta ipsum eu nisi pharetra, et fermentum nibh suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a finibus augue. Duis at orci molestie, tempor dolor vel, luctus lacus. Sed quis nibh quis tortor tincidunt efficitur. Suspendisse tincidunt, arcu dapibus condimentum dignissim, justo enim vehicula sapien, vel eleifend orci tortor non mi. Phasellus urna leo, tempus vitae est sodales, ornare suscipit dui. Aenean accumsan ante ex, eu facilisis nulla fringilla laoreet. Sed at velit iaculis, convallis ipsum ac, mollis mauris. Fusce ultricies, ex a tincidunt facilisis, sem sapien accumsan nibh, id pellentesque sem elit commodo urna. In porta ipsum eu nisi pharetra, et fermentum nibh suscipit. <br>  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a finibus augue. Duis at orci molestie, tempor dolor vel, luctus lacus. Sed quis nibh quis tortor tincidunt efficitur. Suspendisse tincidunt, arcu dapibus condimentum dignissim, justo enim vehicula sapien, vel eleifend orci tortor non mi. Phasellus urna leo, tempus vitae est sodales, ornare suscipit dui. Aenean accumsan ante ex, eu facilisis nulla fringilla laoreet. Sed at velit iaculis, convallis ipsum ac, mollis mauris. Sed at velit iaculis, convallis ipsum ac, mollis mauris. Sed at velit iaculis, convallis ipsum ac, mollis mauris. Sed at velit iaculis, convallis ipsum ac, mollis mauris. Sed at velit iaculis, convallis ipsum ac, mollis mauris. Sed at velit iaculis, convallis ipsum ac, mollis mauris. Sed at velit iaculis, convallis ipsum ac, mollis mauris.",
+    "InfoInteres": "",
+    "Resolucion": "Resolución 2024/25",
+    "FechaPublicacion": "10-10-2025",
+    "FechaInicio": "18-12-2025",
+    "FechaFin": "31-12-2025",
+    "Horario": "10:00 - 12:00",
+    "DetalleHorario" : "Detalle horario",
+    "DescEntidad": "Centro Formación Iturrondo"
+  }
+}

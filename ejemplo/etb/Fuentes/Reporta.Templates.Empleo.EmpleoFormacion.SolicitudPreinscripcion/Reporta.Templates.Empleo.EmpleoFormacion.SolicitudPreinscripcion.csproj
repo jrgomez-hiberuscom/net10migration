@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Remove="SolicitudPreinscripcion.Example.json" />
+		<None Include="SolicitudPreinscripcion.Example.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.22" />
+		<PackageReference Include="SsidArqNet.Components.Blazor.Reporta" Version="1.1.0" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<CompilerGeneratedFilesOutputPath>Compilados</CompilerGeneratedFilesOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Compilados\**" />
+		<Content Remove="Compilados\**" />
+		<EmbeddedResource Remove="Compilados\**" />
+		<None Remove="Compilados\**" />
+	</ItemGroup>
+
+	<Import Project="../../Project.Build.targets" />
+
+</Project>

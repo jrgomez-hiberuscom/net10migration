@@ -1,0 +1,16 @@
+{
+  "Report": {
+    "Hash": "F1181A354E2700D217184698AAA1C0C69E31CC203DE38EE2624CE42218085AF5",
+    "Name": "SolicitudPreinscripcionLote",
+    "Namespace": "Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcionLote",
+    "TypeFullName": "Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcionLote.SolicitudPreinscripcionLote",
+    "ProjectName": "Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcionLote",
+    "Orientation": "Portrait"
+  },
+  "TemplateBuilder": {
+    "RenderHtmlSameWindow": true,
+    "RenderHtmlNewWindow": true,
+    "RenderPdfNewWindow": true,
+    "AllowedToPublish": true
+  }
+}

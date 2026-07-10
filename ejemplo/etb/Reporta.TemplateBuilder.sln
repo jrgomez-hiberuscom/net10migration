@@ -1,0 +1,142 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.1 - SolutionItems", "0.1 - SolutionItems", "{B5508923-753C-431A-BF2C-F4515E7B4AEF}"
+	ProjectSection(SolutionItems) = preProject
+		Jenkinsfile = Jenkinsfile
+		Project.Build.targets = Project.Build.targets
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reporta.TemplateBuilder", "Fuentes\Reporta.TemplateBuilder\Reporta.TemplateBuilder.csproj", "{6A3BDDC4-4CE1-4BCD-AF1B-BCF77AD34A8F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.2 - Tests", "0.2 - Tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reporta.TemplateBuilder.Test.Unit", "Fuentes\Reporta.TemplateBuilder.Test.Unit\Reporta.TemplateBuilder.Test.Unit.csproj", "{12AB80A8-3364-4C85-8860-81449CCFBA68}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reporta.Templates.GAT_SSID.SsidArqNet.ReporteComplejo", "Fuentes\Reporta.Templates.GAT_SSID.SsidArqNet.ReporteComplejo\Reporta.Templates.GAT_SSID.SsidArqNet.ReporteComplejo.csproj", "{2EA119BD-42A4-49CA-A6C1-D648C36DD93E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.0 - Templates", "1.0 - Templates", "{67B1F00D-B4E6-4066-808B-64A9D8DEB65E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reporta.Templates.GAT_SSID.SsidArqNet.ReporteSimple", "Fuentes\Reporta.Templates.GAT_SSID.SsidArqNet.ReporteSimple\Reporta.Templates.GAT_SSID.SsidArqNet.ReporteSimple.csproj", "{4A89FAA5-F434-44EA-AEB3-453D243D0C7D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.0 - Presentation", "2.0 - Presentation", "{9BEBE198-E746-41DB-A77E-90B1D445487E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reporta.Templates.Empleo.Crb.ListadoCandidatos", "Fuentes\Reporta.Templates.Empleo.Crb.ListadoCandidatos\Reporta.Templates.Empleo.Crb.ListadoCandidatos.csproj", "{2DB0D5D8-8CCC-40C9-95E2-3302A562918A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Registro acreditaciones", "Registro acreditaciones", "{28641BE3-ECA2-4CC9-AA9B-A092BDA2AA00}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Renta básica", "Renta básica", "{FE9B9D7B-AF2E-4596-B62F-B8F41B254B9A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ejemplos", "Ejemplos", "{37D8E091-8F79-4143-B1BC-C236C8365AAB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Empleo Formación", "Empleo Formación", "{E1671B0B-96B7-485E-B9D5-FBF165A88E31}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reporta.Templates.Empleo.EmpleoFormacion.FichaCurso", "Fuentes\Reporta.Templates.Empleo.EmpleoFormacion.FichaCurso\Reporta.Templates.Empleo.EmpleoFormacion.FichaCurso.csproj", "{0A224D01-D00B-49AA-BD65-09923A1BEA58}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reporta.Templates.Empleo.Raf.CertificadoProvisional", "Fuentes\Reporta.Templates.Empleo.Raf.CertificadoProvisional\Reporta.Templates.Empleo.Raf.CertificadoProvisional.csproj", "{D82D9DA6-D579-7678-36A8-F5CC9A6A99B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EmpleoIntermediacion", "EmpleoIntermediacion", "{620C6174-2CE1-4D61-984A-40EA485A61E9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reporta.Templates.Empleo.EmpleoIntermediacion.RepresentanteEmpresa", "Fuentes\Reporta.Templates.Empleo.EmpleoIntermediacion.RepresentanteEmpresa\Reporta.Templates.Empleo.EmpleoIntermediacion.RepresentanteEmpresa.csproj", "{6DA195DE-0664-487A-8AB6-1612B464F740}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reporta.Templates.Empleo.EmpleoIntermediacion.Representante", "Fuentes\Reporta.Templates.Empleo.EmpleoIntermediacion.Representante\Reporta.Templates.Empleo.EmpleoIntermediacion.Representante.csproj", "{893F4125-59E9-4869-B89B-DF63870BC35C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reporta.Templates.Empleo.EmpleoIntermediacion.EmpresaRepresentante", "Fuentes\Reporta.Templates.Empleo.EmpleoIntermediacion.EmpresaRepresentante\Reporta.Templates.Empleo.EmpleoIntermediacion.EmpresaRepresentante.csproj", "{908BFC1B-04CA-4919-BBF0-AB5C8474BD67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcion", "Fuentes\Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcion\Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcion.csproj", "{E78BFD44-EE8D-4D9F-892A-B9BDCE858A64}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebOfertas", "WebOfertas", "{AE38051A-0F36-444B-9ACE-A8DFBCD2662D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reporta.Templates.Empleo.WebOfertas.Ofertas", "Fuentes\Reporta.Templates.Empleo.WebOfertas.Ofertas\Reporta.Templates.Empleo.WebOfertas.Ofertas.csproj", "{A40EB348-4D58-49B2-B752-9BB7A54329AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcionLote", "Fuentes\Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcionLote\Reporta.Templates.Empleo.EmpleoFormacion.SolicitudPreinscripcionLote.csproj", "{596DF9D6-52A7-BB3D-3397-03591824C70F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A3BDDC4-4CE1-4BCD-AF1B-BCF77AD34A8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A3BDDC4-4CE1-4BCD-AF1B-BCF77AD34A8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A3BDDC4-4CE1-4BCD-AF1B-BCF77AD34A8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A3BDDC4-4CE1-4BCD-AF1B-BCF77AD34A8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12AB80A8-3364-4C85-8860-81449CCFBA68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12AB80A8-3364-4C85-8860-81449CCFBA68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12AB80A8-3364-4C85-8860-81449CCFBA68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12AB80A8-3364-4C85-8860-81449CCFBA68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EA119BD-42A4-49CA-A6C1-D648C36DD93E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EA119BD-42A4-49CA-A6C1-D648C36DD93E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EA119BD-42A4-49CA-A6C1-D648C36DD93E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EA119BD-42A4-49CA-A6C1-D648C36DD93E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A89FAA5-F434-44EA-AEB3-453D243D0C7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A89FAA5-F434-44EA-AEB3-453D243D0C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A89FAA5-F434-44EA-AEB3-453D243D0C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A89FAA5-F434-44EA-AEB3-453D243D0C7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DB0D5D8-8CCC-40C9-95E2-3302A562918A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DB0D5D8-8CCC-40C9-95E2-3302A562918A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DB0D5D8-8CCC-40C9-95E2-3302A562918A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DB0D5D8-8CCC-40C9-95E2-3302A562918A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A224D01-D00B-49AA-BD65-09923A1BEA58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A224D01-D00B-49AA-BD65-09923A1BEA58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A224D01-D00B-49AA-BD65-09923A1BEA58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A224D01-D00B-49AA-BD65-09923A1BEA58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D82D9DA6-D579-7678-36A8-F5CC9A6A99B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D82D9DA6-D579-7678-36A8-F5CC9A6A99B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D82D9DA6-D579-7678-36A8-F5CC9A6A99B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D82D9DA6-D579-7678-36A8-F5CC9A6A99B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DA195DE-0664-487A-8AB6-1612B464F740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DA195DE-0664-487A-8AB6-1612B464F740}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DA195DE-0664-487A-8AB6-1612B464F740}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DA195DE-0664-487A-8AB6-1612B464F740}.Release|Any CPU.Build.0 = Release|Any CPU
+		{893F4125-59E9-4869-B89B-DF63870BC35C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{893F4125-59E9-4869-B89B-DF63870BC35C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{893F4125-59E9-4869-B89B-DF63870BC35C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{893F4125-59E9-4869-B89B-DF63870BC35C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{908BFC1B-04CA-4919-BBF0-AB5C8474BD67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{908BFC1B-04CA-4919-BBF0-AB5C8474BD67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{908BFC1B-04CA-4919-BBF0-AB5C8474BD67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{908BFC1B-04CA-4919-BBF0-AB5C8474BD67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E78BFD44-EE8D-4D9F-892A-B9BDCE858A64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E78BFD44-EE8D-4D9F-892A-B9BDCE858A64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E78BFD44-EE8D-4D9F-892A-B9BDCE858A64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E78BFD44-EE8D-4D9F-892A-B9BDCE858A64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A40EB348-4D58-49B2-B752-9BB7A54329AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A40EB348-4D58-49B2-B752-9BB7A54329AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A40EB348-4D58-49B2-B752-9BB7A54329AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A40EB348-4D58-49B2-B752-9BB7A54329AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{596DF9D6-52A7-BB3D-3397-03591824C70F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{596DF9D6-52A7-BB3D-3397-03591824C70F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{596DF9D6-52A7-BB3D-3397-03591824C70F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{596DF9D6-52A7-BB3D-3397-03591824C70F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6A3BDDC4-4CE1-4BCD-AF1B-BCF77AD34A8F} = {9BEBE198-E746-41DB-A77E-90B1D445487E}
+		{12AB80A8-3364-4C85-8860-81449CCFBA68} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{2EA119BD-42A4-49CA-A6C1-D648C36DD93E} = {37D8E091-8F79-4143-B1BC-C236C8365AAB}
+		{4A89FAA5-F434-44EA-AEB3-453D243D0C7D} = {37D8E091-8F79-4143-B1BC-C236C8365AAB}
+		{2DB0D5D8-8CCC-40C9-95E2-3302A562918A} = {FE9B9D7B-AF2E-4596-B62F-B8F41B254B9A}
+		{28641BE3-ECA2-4CC9-AA9B-A092BDA2AA00} = {67B1F00D-B4E6-4066-808B-64A9D8DEB65E}
+		{FE9B9D7B-AF2E-4596-B62F-B8F41B254B9A} = {67B1F00D-B4E6-4066-808B-64A9D8DEB65E}
+		{37D8E091-8F79-4143-B1BC-C236C8365AAB} = {67B1F00D-B4E6-4066-808B-64A9D8DEB65E}
+		{E1671B0B-96B7-485E-B9D5-FBF165A88E31} = {67B1F00D-B4E6-4066-808B-64A9D8DEB65E}
+		{0A224D01-D00B-49AA-BD65-09923A1BEA58} = {E1671B0B-96B7-485E-B9D5-FBF165A88E31}
+		{D82D9DA6-D579-7678-36A8-F5CC9A6A99B7} = {28641BE3-ECA2-4CC9-AA9B-A092BDA2AA00}
+		{620C6174-2CE1-4D61-984A-40EA485A61E9} = {67B1F00D-B4E6-4066-808B-64A9D8DEB65E}
+		{6DA195DE-0664-487A-8AB6-1612B464F740} = {620C6174-2CE1-4D61-984A-40EA485A61E9}
+		{893F4125-59E9-4869-B89B-DF63870BC35C} = {620C6174-2CE1-4D61-984A-40EA485A61E9}
+		{908BFC1B-04CA-4919-BBF0-AB5C8474BD67} = {620C6174-2CE1-4D61-984A-40EA485A61E9}
+		{E78BFD44-EE8D-4D9F-892A-B9BDCE858A64} = {E1671B0B-96B7-485E-B9D5-FBF165A88E31}
+		{AE38051A-0F36-444B-9ACE-A8DFBCD2662D} = {67B1F00D-B4E6-4066-808B-64A9D8DEB65E}
+		{A40EB348-4D58-49B2-B752-9BB7A54329AC} = {AE38051A-0F36-444B-9ACE-A8DFBCD2662D}
+		{596DF9D6-52A7-BB3D-3397-03591824C70F} = {E1671B0B-96B7-485E-B9D5-FBF165A88E31}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EF1B9A31-B1E4-4697-88C2-E2E021C76B47}
+	EndGlobalSection
+EndGlobal

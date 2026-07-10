@@ -1,0 +1,16 @@
+{
+  "Report": {
+    "Hash": "338435B6C63A12F2DBE660876DB7C4E638CF8715370CD23D0AADD27F18EDE423",
+    "Name": "FichaCurso",
+    "Namespace": "Reporta.Templates.Empleo.EmpleoFormacion.FichaCurso",
+    "TypeFullName": "Reporta.Templates.Empleo.EmpleoFormacion.FichaCurso.FichaCurso",
+    "ProjectName": "Reporta.Templates.Empleo.EmpleoFormacion.FichaCurso",
+    "Orientation": "Portrait"
+  },
+  "TemplateBuilder": {
+    "RenderHtmlSameWindow": true,
+    "RenderHtmlNewWindow": true,
+    "RenderPdfNewWindow": true,
+    "AllowedToPublish": true
+  }
+}
