@@ -170,7 +170,7 @@ def apply_package_versions_to_props(
         if package_id:
             by_id[package_id] = package_version
 
-    for package_id, version in sorted(effective_versions.items(), key=lambda x: x[0].lower()):
+    for package_id, version in sorted(effective_versions.items(), key=lambda x: x[0]):
         node = by_id.get(package_id)
         if node is None:
             item_group = props_root.find(ns_tag("ItemGroup", namespace))
