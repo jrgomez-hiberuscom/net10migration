@@ -213,6 +213,52 @@ function Get-HigherPackageVersion {
     return $CandidateVersion
 }
 
+function Test-IsWasmProject {
+    param(
+        [Parameter(Mandatory = $true)]
+        [xml]$ProjectDocument
+    )
+
+    $projectNode = $ProjectDocument.SelectSingleNode("/*[local-name()='Project']")
+    if ($projectNode -and $projectNode.Attributes["Sdk"]) {
+        $sdkValue = $projectNode.Attributes["Sdk"].Value
+        if (-not [string]::IsNullOrWhiteSpace($sdkValue) -and $sdkValue.IndexOf("BlazorWebAssembly", [System.StringComparison]::OrdinalIgnoreCase) -ge 0) {
+            return $true
+        }
+    }
+
+    $wasmReferenceNode = $ProjectDocument.SelectSingleNode(
+        "//*[local-name()='PackageReference'][@Include='Microsoft.AspNetCore.Components.WebAssembly' or @Update='Microsoft.AspNetCore.Components.WebAssembly']"
+    )
+
+    return $null -ne $wasmReferenceNode
+}
+
+function Resolve-ReplacementPackageName {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$PackageName,
+        [Parameter(Mandatory = $true)]
+        [bool]$IsWasmProject
+    )
+
+    switch ($PackageName) {
+        "SsidArqNet.Ateka.AspNetCoreApi" { return "SsidArqNet.Ateka.AspNetCore.Api" }
+        "SsidArqNet.Ateka.AspNetCoreApi.Swagger" { return "SsidArqNet.Ateka.AspNetCore.Api.Swagger" }
+        "SsidArqNet.Ateka.UserContext" { return "SsidArqNet.Ateka.Blazor.Server.UserContext" }
+        "SsidArqNet.Ateka.UserContext.AspNetCore" { return "SsidArqNet.Ateka.Blazor.Wasm.UserContext" }
+        "SsidArqNet.Components.Blazor.Layout.Internet" {
+            if ($IsWasmProject) { return "SsidArqNet.Components.Blazor.Wasm.Layout.Internet" }
+            return "SsidArqNet.Components.Blazor.Server.Layout.Internet"
+        }
+        "SsidArqNet.Internationalization.AspNetCore.Blazor" {
+            if ($IsWasmProject) { return "SsidArqNet.Internationalization.Blazor.Wasm" }
+            return "SsidArqNet.Internationalization.Blazor.Server"
+        }
+        default { return $PackageName }
+    }
+}
+
 function Update-CSharpApiReferences {
     param(
         [Parameter(Mandatory = $true)]
@@ -410,6 +456,26 @@ if (-not (Test-Path -LiteralPath $SolutionRoot)) {
 
 $solutionRootFullPath = (Resolve-Path -LiteralPath $SolutionRoot).Path
 
+$packagesExcludedFromCentralization = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+foreach ($packageName in @(
+    "SsidArqNet.Ateka.AspNetCoreApi",
+    "SsidArqNet.Ateka.AspNetCoreApi.Swagger",
+    "SsidArqNet.Ateka.AspNetCore.Api",
+    "SsidArqNet.Ateka.AspNetCore.Api.Swagger",
+    "SsidArqNet.Ateka.UserContext",
+    "SsidArqNet.Ateka.UserContext.AspNetCore",
+    "SsidArqNet.Ateka.Blazor.Server.UserContext",
+    "SsidArqNet.Ateka.Blazor.Wasm.UserContext",
+    "SsidArqNet.Components.Blazor.Layout.Internet",
+    "SsidArqNet.Components.Blazor.Server.Layout.Internet",
+    "SsidArqNet.Components.Blazor.Wasm.Layout.Internet",
+    "SsidArqNet.Internationalization.AspNetCore.Blazor",
+    "SsidArqNet.Internationalization.Blazor.Server",
+    "SsidArqNet.Internationalization.Blazor.Wasm"
+)) {
+    [void]$packagesExcludedFromCentralization.Add($packageName)
+}
+
 $targetPackageVersions = @{
     "AutoMapper" = "14.0.0"
     "Bogus" = "35.6.5"
@@ -508,6 +574,7 @@ $updatedCSharpFiles = Update-CSharpApiReferences -RootPath $solutionRootFullPath
 foreach ($csproj in $csprojFiles) {
     [xml]$projectDocument = Get-Content -LiteralPath $csproj.FullName -Raw
     $projectChanged = $false
+    $isWasmProject = Test-IsWasmProject -ProjectDocument $projectDocument
 
     $packageReferenceNodes = $projectDocument.SelectNodes("//*[local-name()='PackageReference']")
     foreach ($packageReferenceNode in $packageReferenceNodes) {
@@ -516,16 +583,64 @@ foreach ($csproj in $csprojFiles) {
             continue
         }
 
-        $versionValue = $null
-        if ($packageReferenceNode.Attributes["Version"]) {
-            $versionValue = $packageReferenceNode.Attributes["Version"].Value
-            [void]$packageReferenceNode.Attributes.RemoveNamedItem("Version")
+        $replacementPackageKey = Resolve-ReplacementPackageName -PackageName $packageKey -IsWasmProject $isWasmProject
+        if ($replacementPackageKey -ne $packageKey) {
+            if ($packageReferenceNode.Attributes["Include"]) {
+                $packageReferenceNode.Attributes["Include"].Value = $replacementPackageKey
+            }
+            elseif ($packageReferenceNode.Attributes["Update"]) {
+                $packageReferenceNode.Attributes["Update"].Value = $replacementPackageKey
+            }
+            else {
+                [void]$packageReferenceNode.SetAttribute("Include", $replacementPackageKey)
+            }
+            $packageKey = $replacementPackageKey
             $projectChanged = $true
+        }
+
+        $versionValue = $null
+        $versionAttribute = $packageReferenceNode.Attributes["Version"]
+        if ($versionAttribute) {
+            $versionValue = $versionAttribute.Value
         }
 
         $versionNode = $packageReferenceNode.SelectSingleNode("./*[local-name()='Version']")
         if ($versionNode -and -not [string]::IsNullOrWhiteSpace($versionNode.InnerText)) {
             $versionValue = $versionNode.InnerText.Trim()
+        }
+
+        if ($packagesExcludedFromCentralization.Contains($packageKey)) {
+            if ($targetPackageVersions.Contains($packageKey)) {
+                $versionValue = $targetPackageVersions[$packageKey]
+            }
+
+            if ($versionNode) {
+                [void]$packageReferenceNode.RemoveChild($versionNode)
+                $projectChanged = $true
+            }
+
+            if (-not [string]::IsNullOrWhiteSpace($versionValue)) {
+                if ($versionAttribute) {
+                    if ($versionAttribute.Value -ne $versionValue) {
+                        $versionAttribute.Value = $versionValue
+                        $projectChanged = $true
+                    }
+                }
+                else {
+                    [void]$packageReferenceNode.SetAttribute("Version", $versionValue)
+                    $projectChanged = $true
+                }
+            }
+
+            continue
+        }
+
+        if ($packageReferenceNode.Attributes["Version"]) {
+            [void]$packageReferenceNode.Attributes.RemoveNamedItem("Version")
+            $projectChanged = $true
+        }
+
+        if ($versionNode) {
             [void]$packageReferenceNode.RemoveChild($versionNode)
             $projectChanged = $true
         }
@@ -548,7 +663,16 @@ foreach ($csproj in $csprojFiles) {
 }
 
 foreach ($packageName in $targetPackageVersions.Keys) {
+    if ($packagesExcludedFromCentralization.Contains($packageName)) {
+        continue
+    }
     $packageVersions[$packageName] = $targetPackageVersions[$packageName]
+}
+
+foreach ($packageName in $packagesExcludedFromCentralization) {
+    if ($packageVersions.Contains($packageName)) {
+        $packageVersions.Remove($packageName)
+    }
 }
 
 $projectNode = $directoryPackagesDocument.SelectSingleNode("/*[local-name()='Project']")
