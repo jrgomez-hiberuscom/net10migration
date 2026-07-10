@@ -263,21 +263,11 @@ function Convert-SolutionsToSlnx {
             continue
         }
 
-        $stdout = ""
-        $stderr = ""
-        $exitCode = 0
-
-        # Try both command syntaxes to support different SDK CLI layouts during transition to .NET 10 tooling.
-        $stdout = (& dotnet sln migrate $solutionFile.FullName --output $slnxPath 2>&1 | Out-String)
+        $stdout = (& dotnet solution $solutionFile.FullName migrate 2>&1 | Out-String)
         $exitCode = $LASTEXITCODE
-        if ($exitCode -ne 0) {
-            $stderr = $stdout
-            $stdout = (& dotnet sln $solutionFile.FullName migrate --output $slnxPath 2>&1 | Out-String)
-            $exitCode = $LASTEXITCODE
-        }
 
         if ($exitCode -ne 0) {
-            throw "Failed to convert '$($solutionFile.FullName)' to '.slnx'. dotnet output: $stderr $stdout"
+            throw "Failed to convert '$($solutionFile.FullName)' to '.slnx'. dotnet output: $stdout"
         }
 
         if (-not (Test-Path -LiteralPath $slnxPath)) {
