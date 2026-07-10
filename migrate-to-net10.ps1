@@ -142,7 +142,7 @@ function Compare-PackageVersion {
         foreach ($segment in ($coreText -split '\.')) {
             $value = [int64]0
             if (-not [int64]::TryParse($segment, [ref]$value)) {
-                Write-Warning "Could not parse version '$VersionText'. Segment '$segment' is not numeric."
+                Write-Warning "Could not parse version '$VersionText'. Segment '$segment' is not numeric. Falling back to ordinal comparison."
                 return $null
             }
             $coreNumbers += $value
@@ -151,7 +151,6 @@ function Compare-PackageVersion {
         return @{
             Core = @($coreNumbers)
             PreRelease = if ([string]::IsNullOrWhiteSpace($preReleaseText)) { @() } else { @($preReleaseText -split '\.') }
-            Original = $VersionText
         }
     }
 
@@ -222,7 +221,6 @@ Ensure-DirectoryPackagesProps -Path $directoryPackagesPath
 
 [xml]$directoryPackagesDocument = Get-Content -LiteralPath $directoryPackagesPath -Raw
 $packageVersions = @{}
-$packageSources = @{}
 
 $existingPackageVersionNodes = $directoryPackagesDocument.SelectNodes("/*[local-name()='Project']/*[local-name()='ItemGroup']/*[local-name()='PackageVersion']")
 foreach ($packageVersionNode in $existingPackageVersionNodes) {
@@ -233,9 +231,8 @@ foreach ($packageVersionNode in $existingPackageVersionNodes) {
     if ([string]::IsNullOrWhiteSpace($packageName) -or [string]::IsNullOrWhiteSpace($versionValue)) {
         continue
     }
-
     $packageVersions[$packageName] = $versionValue
-    $packageSources[$packageName] = @($directoryPackagesPath)
+    $packageVersions[$packageName] = $versionValue
 }
 
 $csprojFiles = Get-ChildItem -Path $solutionRootFullPath -Recurse -Filter "*.csproj" -File |
@@ -272,14 +269,10 @@ foreach ($csproj in $csprojFiles) {
 
         if ($packageVersions.Contains($packageKey)) {
             $packageVersions[$packageKey] = Get-HigherPackageVersion -CurrentVersion $packageVersions[$packageKey] -CandidateVersion $versionValue
-            if (-not ($packageSources[$packageKey] -contains $csproj.FullName)) {
-                $packageSources[$packageKey] += $csproj.FullName
-            }
             continue
         }
 
         $packageVersions[$packageKey] = $versionValue
-        $packageSources[$packageKey] = @($csproj.FullName)
     }
 
     if ($projectChanged) {
