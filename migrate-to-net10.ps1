@@ -44,7 +44,7 @@ function Ensure-DirectoryPackagesProps {
 
     $projectNode = $doc.SelectSingleNode("/*[local-name()='Project']")
     if (-not $projectNode) {
-        throw "El archivo '$Path' no contiene un nodo Project válido."
+        throw "The file '$Path' does not contain a valid Project node."
     }
 
     $propertyGroup = $projectNode.SelectSingleNode("./*[local-name()='PropertyGroup'][*[local-name()='ManagePackageVersionsCentrally']]")
@@ -89,7 +89,7 @@ function Get-PackageKey {
 }
 
 if (-not (Test-Path -LiteralPath $SolutionRoot)) {
-    throw "No existe la ruta '$SolutionRoot'."
+    throw "The path '$SolutionRoot' does not exist."
 }
 
 $solutionRootFullPath = (Resolve-Path -LiteralPath $SolutionRoot).Path
@@ -148,7 +148,7 @@ foreach ($csproj in $csprojFiles) {
         if ($packageVersions.Contains($packageKey)) {
             if ($packageVersions[$packageKey] -ne $versionValue) {
                 $existingSource = ($packageSources[$packageKey] -join ", ")
-                throw "Conflicto de versiones para '$packageKey': '$($packageVersions[$packageKey])' en '$existingSource' y '$versionValue' en '$($csproj.FullName)'."
+                throw "Version conflict for '$packageKey': '$($packageVersions[$packageKey])' in '$existingSource' and '$versionValue' in '$($csproj.FullName)'."
             }
 
             if (-not ($packageSources[$packageKey] -contains $csproj.FullName)) {
@@ -187,7 +187,7 @@ foreach ($packageName in ($packageVersions.Keys | Sort-Object)) {
 
 Save-XmlUtf8 -XmlDocument $directoryPackagesDocument -Path $directoryPackagesPath
 
-Write-Host "Paso 1 completado."
-Write-Host "- Directory.Packages.props asegurado en: $directoryPackagesPath"
-Write-Host "- Proyectos analizados: $($csprojFiles.Count)"
-Write-Host "- Paquetes centralizados: $($packageVersions.Count)"
+Write-Host "Step 1 completed."
+Write-Host "- Directory.Packages.props ensured at: $directoryPackagesPath"
+Write-Host "- Projects analyzed: $($csprojFiles.Count)"
+Write-Host "- Packages centralized: $($packageVersions.Count)"
