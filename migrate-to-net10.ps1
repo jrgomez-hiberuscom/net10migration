@@ -232,7 +232,6 @@ foreach ($packageVersionNode in $existingPackageVersionNodes) {
         continue
     }
     $packageVersions[$packageName] = $versionValue
-    $packageVersions[$packageName] = $versionValue
 }
 
 $csprojFiles = Get-ChildItem -Path $solutionRootFullPath -Recurse -Filter "*.csproj" -File |
